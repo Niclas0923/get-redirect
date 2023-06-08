@@ -10,5 +10,5 @@ if (require("./mod/testConfig").tec(config)){
     fs.writeFileSync("./routes/user.js",require("./mod/velBuild").velb(config))
 
     // 开始监听
-    require("./mod/server").ser(parseInt(config["listenPoint"]),require('./routes/user.js'))
+    require("./mod/server").ser(parseInt(config["listenPoint"]),require('./routes/user.js'),config)
 }
