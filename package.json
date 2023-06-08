@@ -9,6 +9,7 @@
   "author": "Niclas",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "https": "^1.0.0"

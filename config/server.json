@@ -1,11 +1,11 @@
 {
   "http": {
     "on": true,
-    "point": 18989
+    "point": 80
   },
   "https": {
     "on": false,
-    "point": 18990,
+    "point": 443,
     "ssl": {
       "key": "",
       "cert": ""
