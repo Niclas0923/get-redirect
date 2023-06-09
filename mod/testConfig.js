@@ -2,7 +2,7 @@ const testConfig = (data)=>{
     let list = []
     for (const i of data) {
         // 重复检测和特殊检测
-        const lintS = ["login"]
+        const lintS = ["login","getValList","removeOne","addOne"]
         if (list.indexOf(i[0])===-1 && lintS.indexOf(i[0])===-1){
             list.push(i[0])
         }else {

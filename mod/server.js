@@ -27,6 +27,42 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else res.send(["用户名或密码错误"])
     })
 
+    app.post("/getValList",(req, res)=>{
+        const {name,password} = req.body
+        if (testLogin(name,password)){
+            const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+            res.send(data)
+        }else res.send(["用户名或密码错误"])
+    })
+
+    app.post("/removeOne",(req, res)=>{
+        const {name,password,tag} = req.body
+        if (testLogin(name,password)){
+            const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+            function removeFromArray(target, array) {
+                for (let i = array.length - 1; i >= 0; i--) {
+                    if (Array.isArray(array[i]) && array[i][0] === target) {
+                        array.splice(i, 1);
+                    }
+                }
+            }
+            removeFromArray(tag, data);
+            fs.writeFileSync("./config/data.json",JSON.stringify(data))
+            res.send(["成功"])
+        }else res.send(["用户名或密码错误"])
+    })
+
+    app.post("/addOne",(req, res)=>{
+        const {name,password,tag,url} = req.body
+        if (testLogin(name,password)){
+            const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+            data.push([tag,url])
+            fs.writeFileSync("./config/data.json",JSON.stringify(data))
+            res.send(["成功"])
+        }else res.send(["用户名或密码错误"])
+    })
+
+
     // 判断协议
     if (httpsO){
         const https = require("https")
