@@ -9,16 +9,22 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     app.use('/', userRoutes);
     app.use(express.static('./page'))
 
-    app.post("/login",(req, res)=>{
-        const {name,password} = req.body
+    // 测试用户名和密码的函数
+    const testLogin = (name,passwd)=>{
         const usr = JSON.parse(String(fs.readFileSync("./config/user.json")))
         const users = []
         for (const i in usr) users.push(usr[i][0])
         const index = users.indexOf(name)
         if (index !== -1){
-            if (usr[index][1] === password) res.send(["密码正确"])
-            else res.send(["密码错误"])
-        }else res.send(["用户名不存在"])
+            return usr[index][1] === passwd;
+        }else return false
+    }
+
+    app.post("/login",(req, res)=>{
+        const {name,password} = req.body
+        if (testLogin(name,password)){
+            res.send(["密码正确"])
+        }else res.send(["用户名或密码错误"])
     })
 
     // 判断协议
