@@ -7,7 +7,13 @@ let server = [false,false]
 // 单次运行函数
 const ones = ()=>{
     const one = data === "配置文件"
-    const data0 = JSON.parse(String(fs.readFileSync("./config/data.json")))
+    let data0
+    try{
+        data0 = JSON.parse(String(fs.readFileSync("./config/data.json")))
+    }catch (e) {
+        data0 = []
+        fs.writeFileSync("./config/data.json",JSON.stringify([]))
+    }
     // 判断是否与之前相同，不相同则执行下列句子
     if (JSON.stringify(data) !== JSON.stringify(data0)){
         if (!one) console.log("\n\n配置文件被修改，准备检测修改")
