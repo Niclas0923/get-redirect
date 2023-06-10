@@ -43,3 +43,16 @@ ones()
 
 // 添加更新检测
 setInterval(()=>{ones()},5000)
+
+// 监听输入
+const list = ["update","h"]
+require("./mod/readline.js").readline(list,[
+    ["update",()=>{
+        console.log('\t正在尝试更新');
+        ones()
+        console.log('\t无需更新或更新完成');
+    }],
+    ["h",()=>{
+        for (let i of list) console.log("\t"+i)
+    }]
+])
