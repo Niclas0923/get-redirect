@@ -20,14 +20,14 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else return false
     }
 
-    app.post("/login",(req, res)=>{
+    app.post("/systemServer/login",(req, res)=>{
         const {name,password} = req.body
         if (testLogin(name,password)){
             res.send(["密码正确"])
         }else res.send(["用户名或密码错误"])
     })
 
-    app.post("/getValList",(req, res)=>{
+    app.post("/systemServer/getValList",(req, res)=>{
         const {name,password} = req.body
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
@@ -35,7 +35,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else res.send(["用户名或密码错误"])
     })
 
-    app.post("/removeOne",(req, res)=>{
+    app.post("/systemServer/removeOne",(req, res)=>{
         const {name,password,tag} = req.body
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
@@ -52,7 +52,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else res.send(["用户名或密码错误"])
     })
 
-    app.post("/addOne",(req, res)=>{
+    app.post("/systemServer/addOne",(req, res)=>{
         const {name,password,tag,url} = req.body
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/data.json")))

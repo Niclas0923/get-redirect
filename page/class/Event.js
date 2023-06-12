@@ -37,20 +37,23 @@ class Event {
         $("#add").on("click", function () {
             const tag = $("#exampleInputEmail1").val()
             const url = $("#exampleInputPassword1").val()
-            const regex = /[<>\\]/;
-            // 测试几个特殊符号
-            if(!regex.test(tag) && !regex.test(url)){
-                // 测试tag
-                t.m.getValList(data=>{
-                    if (data){
-                        const list = ["login","getValList","removeOne","addOne"]
-                        for (const i of data) list.push(i[0])
-                        if (list.indexOf(tag) === -1){
-                            t.m.addOne(tag,url)
-                        }else alert("索引标签重复或与系统占用标签相同，请进行修改")
-                    }
-                })
-            }else alert("不能含有 <>\\ 这几个特殊符号")
+            // 不能为空
+            if (tag.length !== 0 && url.length !== 0){
+                const regex = /[<>\\]/;
+                // 测试几个特殊符号
+                if(!regex.test(tag) && !regex.test(url)){
+                    // 测试tag
+                    t.m.getValList(data=>{
+                        if (data){
+                            const list = ["systemServer"]
+                            for (const i of data) list.push(i[0])
+                            if (list.indexOf(tag) === -1){
+                                t.m.addOne(tag,url)
+                            }else alert("索引标签重复或与系统占用标签相同，请进行修改")
+                        }
+                    })
+                }else alert("不能含有 <>\\ 这几个特殊符号")
+            }else alert("不能为空")
         })
     }
 }

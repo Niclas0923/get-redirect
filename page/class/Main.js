@@ -11,7 +11,7 @@ class Main {
     // 测试登陆的函数
     testLogin(name,passwd){
         const t = this
-        $.post("/login",{name:name,password:passwd},function (res){
+        $.post("/systemServer/login",{name:name,password:passwd},function (res){
             if (res[0] === "密码正确"){
                 $("#login-page").css("display","none")
                 $("#val-page").css("display","block")
@@ -26,7 +26,7 @@ class Main {
 
     getValList(callback){
         const userVal = JSON.parse(localStorage.getItem("user"))
-        $.post("/getValList",{name:userVal["name"],password:userVal["password"]},function (res){
+        $.post("/systemServer/getValList",{name:userVal["name"],password:userVal["password"]},function (res){
             if (res === "用户名或密码错误"){
                 alert("用户名或密码错误")
                 callback(false)
@@ -55,7 +55,7 @@ class Main {
 
     removeOne(tag){
         const userVal = JSON.parse(localStorage.getItem("user"))
-        $.post("/removeOne",{name:userVal["name"],password:userVal["password"],tag:tag},function (res){
+        $.post("/systemServer/removeOne",{name:userVal["name"],password:userVal["password"],tag:tag},function (res){
             alert(res[0])
         },"json")
     }
@@ -63,7 +63,7 @@ class Main {
     addOne(tag,url){
         const t = this
         const userVal = JSON.parse(localStorage.getItem("user"))
-        $.post("/addOne",{name:userVal["name"],password:userVal["password"],tag:tag,url:url},function (res){
+        $.post("/systemServer/addOne",{name:userVal["name"],password:userVal["password"],tag:tag,url:url},function (res){
             alert(res[0])
             $("#exampleInputEmail1,#exampleInputPassword1").val("")
             t.getValList(data=>{if (data) t.draw(data)})
