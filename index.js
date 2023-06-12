@@ -4,6 +4,9 @@ const fs = require("fs")
 let data = "配置文件"
 let server = [false,false]
 
+// 创建初始文件夹
+if (!fs.existsSync("./routes")) fs.mkdirSync("./routes");
+
 // 单次运行函数
 const ones = ()=>{
     const one = data === "配置文件"
@@ -24,13 +27,16 @@ const ones = ()=>{
             // 格式正确会删除并重新开始，格式错误会继续原先函数
             if (server[0]) server[0].close()
             if (server[1]) server[1].close()
+            // 删除所有文件
+            fs.readdirSync("./routes").forEach(file => fs.unlinkSync(`./routes/${file}`))
+            const name_time = Date.now()
             // 写入文件
-            fs.writeFileSync("./routes/user.js",require("./mod/velBuild").velb(data))
+            fs.writeFileSync(`./routes/${name_time}.js`,require("./mod/velBuild").velb(data))
 
             // 读取配置文件
             const ser = JSON.parse(String(fs.readFileSync("./config/server.json")))
             const serF = require("./mod/server").ser
-            const usrS = require('./routes/user.js')
+            const usrS = require(`./routes/${name_time}.js`)
             server[0] = ser["http"]["on"]?serF(ser["http"],usrS,data):false
             server[1] = ser["https"]["on"]?serF(ser["https"],usrS,data,true):false
         }else{
