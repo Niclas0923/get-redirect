@@ -45,7 +45,7 @@ class Event {
                     // 测试tag
                     t.m.getValList(data=>{
                         if (data){
-                            const list = ["systemServer"]
+                            const list = ["systemServer","adm"]
                             for (const i of data) list.push(i[0])
                             if (list.indexOf(tag) === -1){
                                 t.m.addOne(tag,url)
