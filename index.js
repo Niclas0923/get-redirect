@@ -1,4 +1,5 @@
 const fs = require("fs")
+const { spawn } = require('child_process');
 
 // 读取配置文件
 let data = "配置文件"
@@ -51,7 +52,7 @@ ones()
 setInterval(()=>{ones()},5000)
 
 // 监听输入
-const list = ["update","h"]
+const list = ["update","h",'git pull']
 require("./mod/readline.js").readline(list,[
     ["update",()=>{
         console.log('\t正在尝试更新');
@@ -60,5 +61,30 @@ require("./mod/readline.js").readline(list,[
     }],
     ["h",()=>{
         for (let i of list) console.log("\t"+i)
+    }],
+    ['git pull',()=>{
+        // 运行shell命令
+        const command = spawn('git pull', { shell: true });
+
+        // 监听命令的输出
+        command.stdout.on('data', (data) => {
+            // 输出新的命令输出
+            console.log(data.toString());
+        });
+
+        // 捕获命令执行错误
+        command.on('error', (error) => {
+            console.error(`执行命令失败: ${error}`);
+        });
+
+        // 监听命令的退出事件
+        command.on('close', (code) => {
+            if (code === 0) {
+                console.log('git pull 执行完成');
+                console.log("这个更新只能更新网页部分内容，并且会立即生效，但是如果服务器部分进行了更新，你需要去控制台重启这个服务。")
+            } else {
+                console.error(`命令执行失败，退出码: ${code}`);
+            }
+        });
     }]
 ])
