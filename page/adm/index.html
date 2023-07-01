@@ -1,83 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="UTF-8">
-<!--    <link rel="shortcut icon" type="image/icon" href="./img/01.ico">-->
-<!--    <link rel ="apple-touch-icon" href ="./img/02.ico">-->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="language" content="Chinese">
-    <meta http-equiv="Content-Language" content="zh-CN">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>adm</title>
-    <!-- popper -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/popper.js/2.11.7/umd/popper.min.js"></script>
+    <title>ADM</title>
     <!-- jquery -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/jquery-color/2.1.2/jquery.color.min.js"></script>
     <!-- Bootstrap 核心 CSS 文件 -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.min.js"></script>
+    <!-- vue -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.js"></script>
+    <!--    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.min.js"></script>-->
     <link rel="stylesheet" href="style.css">
-    <script src="./class/Event.js"></script>
-    <script src="class/Main.js"></script>
-    <script>window.onload = () => new Main()</script>
 </head>
 <body>
-<div id="login-page" class="container">
-    <div style="height: 30vh"></div>
-    <div id="login-from" class="col-12 offset-0 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
-        <h2 id="h44">管理员登陆</h2>
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">用户名</label>
+<div id="root">
+    <div id="login-page" class="container" v-if="!init">
+        <div style="height: 30vh"></div>
+        <div id="login-from" class="col-12 offset-0 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+            <h2>管理员登陆</h2>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="用户名" v-model="user.name">
+                <label for="floatingInput">用户名</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="密码" v-model="user.pw" @keydown.enter="login">
+                <label for="floatingPassword">密码</label>
+            </div>
+            <button class="btn btn-primary" @click="login">登陆</button>
         </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">密码</label>
-        </div>
-        <button class="btn btn-primary" id="login-btn">登陆</button>
     </div>
-</div>
-<div id="val-page">
-    <nav class="navbar" style="box-shadow: 0 0 5px gray">
-        <div class="container-fluid">
-            <a class="navbar-brand">ADM-Menu</a>
-        </div>
-    </nav>
-    <div style="height: 1vh;"></div>
-    <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-        <!-- 添加表单 -->
-        <div class="card-page" style="padding: 35px">
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">索引</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="val-page" v-if="init">
+        <nav class="navbar" style="box-shadow: 0 0 5px gray">
+            <div class="container-fluid">
+                <a class="navbar-brand">ADM-Menu</a>
             </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">URL</label>
-                <input type="url" class="form-control" id="exampleInputPassword1">
+        </nav>
+        <div style="height: 1vh;"></div>
+        <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <!-- 添加表单 -->
+            <div class="card-page" style="padding: 35px">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">索引</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" v-model="input.i">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">URL</label>
+                    <input type="url" class="form-control" id="exampleInputPassword1" v-model="input.url"  @keydown.enter="addOne">
+                </div>
+                <button class="btn btn-primary" id="add" @click="addOne">添加</button>
             </div>
-            <button class="btn btn-primary" id="add">添加</button>
-        </div>
-        <!-- 下面信息栏 -->
-        <div id="val-init">
-            <div class="card-page">
-                <h4>bd1</h4>
-                <a href="https://www.baidu.com" target="_blank">https://www.baidu.com</a>
-                <a class="false" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+            <!-- 下面信息栏 -->
+            <div class="card-page" v-for="i in list">
+                <h4>{{i[0]}}</h4>
+                <a :href="i[1]" target="_blank">{{i[1]}}</a>
+                <a class="false" href="#" @click="delOne(i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                     </svg>
                 </a>
             </div>
         </div>
-
     </div>
 </div>
-
+<script src="js.js"></script>
 </body>
 </html>

@@ -1,16 +1,17 @@
-/*登录表格*/
 #login-from{
     padding: 35px 30px 28px;
     box-shadow: 0 0 2px gray;
     border-radius: 5px;
 }
-#login-from>h2{
+#h44{
     padding-bottom: 15px;
 }
-#login-from>button{
+#login-btn{
     margin-top: 20px;
 }
-/*卡片*/
+#val-page{
+    display: none;
+}
 .card-page{
     padding: 20px 35px;
     margin: 20px;
@@ -18,12 +19,8 @@
     border-radius: 10px;
     position: relative;
 }
-/*卡片的错误按钮*/
 .false{
     position: absolute;
     right: 25px;
     top: 20px;
-}
-.false>svg{
-    color: gray;
 }
