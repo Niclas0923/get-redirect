@@ -52,7 +52,7 @@
                 <button class="btn btn-primary" id="add" @click="addOne">添加</button>
             </div>
             <!-- 下面信息栏 -->
-            <div class="card-page" v-for="i in list">
+            <div class="card-page" v-for="i in list" :key="i[0]">
                 <h4>{{i[0]}}</h4>
                 <a :href="i[1]" target="_blank">{{i[1]}}</a>
                 <a class="false" href="#" @click="delOne(i)">
