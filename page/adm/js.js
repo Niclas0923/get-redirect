@@ -83,7 +83,7 @@ const vm = new Vue({
         }
     },
     // 起始时会调用的函数
-    created(){
+    mounted(){
         // 尝试从以前的值中读取user的信息
         const userVal = JSON.parse(localStorage.getItem("user"))
         if (userVal){
