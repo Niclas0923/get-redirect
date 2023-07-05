@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="language" content="Chinese">
+    <meta http-equiv="Content-Language" content="zh-CN">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>ADM</title>
     <!-- jquery -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -39,6 +45,14 @@
         </nav>
         <div style="height: 1vh;"></div>
         <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+            <!-- 提示栏 -->
+            <div class="card-page" v-pre style="padding: 20px 15px">
+                <ul>
+                    <li>索引无需添加斜杠 “/”。</li>
+                    <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
+                    <li>URL要设置成转跳链接时候一定要添加“http(s)://”，不然会被认为是相对链接。</li>
+                </ul>
+            </div>
             <!-- 添加表单 -->
             <div class="card-page" style="padding: 35px">
                 <div class="mb-3">

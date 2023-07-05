@@ -18,6 +18,9 @@
     border-radius: 10px;
     position: relative;
 }
+.card-page>ul{
+    margin-bottom: 0;
+}
 /*卡片的错误按钮*/
 .false{
     position: absolute;
