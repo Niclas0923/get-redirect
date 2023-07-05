@@ -80,6 +80,11 @@ const vm = new Vue({
                     this.list = res
                 }
             },"json")
+        },
+        // 刷新按钮
+        resBtn(){
+            this.getNewList()
+            alert("刷新完成")
         }
     },
     // 起始时会调用的函数
