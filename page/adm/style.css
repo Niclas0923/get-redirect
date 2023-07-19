@@ -1,3 +1,7 @@
+body{
+    min-height: 100%;
+}
+
 /*登录表格*/
 #login-from{
     padding: 35px 30px 28px;
