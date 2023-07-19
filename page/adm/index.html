@@ -69,7 +69,7 @@
             <div class="card-page" v-for="i in list" :key="i.id">
                 <h4>{{i.name}}</h4>
                 <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
-                <a :href="i.url" target="_blank">{{i.url}}</a>
+                <a :href="i.url" target="_blank" class="as">{{i.url}}</a>
                 <a class="false" href="#" @click="delOne(i)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>

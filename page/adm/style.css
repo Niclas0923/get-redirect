@@ -30,3 +30,8 @@
 .false>svg{
     color: gray;
 }
+
+.as{
+    display: inline-block;
+    word-break: break-all;
+}
