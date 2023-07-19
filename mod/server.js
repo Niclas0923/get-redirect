@@ -2,6 +2,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     const express = require("express")
     const bodyParser = require("body-parser");
     const fs = require("fs")
+    const shortid = require('shortid');
     // 开启监听测试
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,10 +14,10 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     const testLogin = (name,passwd)=>{
         const usr = JSON.parse(String(fs.readFileSync("./config/user.json")))
         const users = []
-        for (const i in usr) users.push(usr[i][0])
+        for (const i of usr) users.push(i.name)
         const index = users.indexOf(name)
         if (index !== -1){
-            return usr[index][1] === passwd;
+            return usr[index].password === passwd;
         }else return false
     }
 
@@ -38,15 +39,19 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     app.post("/systemServer/removeOne",(req, res)=>{
         const {name,password,tag} = req.body
         if (testLogin(name,password)){
-            const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
-            function removeFromArray(target, array) {
-                for (let i = array.length - 1; i >= 0; i--) {
-                    if (Array.isArray(array[i]) && array[i][0] === target) {
-                        array.splice(i, 1);
-                    }
-                }
-            }
-            removeFromArray(tag, data);
+            let data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+
+            // function removeFromArray(target, array) {
+            //     for (let i = array.length - 1; i >= 0; i--) {
+            //         if (Array.isArray(array[i]) && array[i][0] === target) {
+            //             array.splice(i, 1);
+            //         }
+            //     }
+            // }
+
+            data = data.filter(i => i.name !== tag)
+
+            // removeFromArray(tag, data);
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
             res.send(["成功"])
         }else res.send(["用户名或密码错误"])
@@ -56,7 +61,13 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         const {name,password,tag,url} = req.body
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
-            data.push([tag,url])
+            const id = shortid.generate();
+            data.push({
+                name:tag,
+                url,
+                userName:name,
+                id
+            })
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
             res.send(["成功"])
         }else res.send(["用户名或密码错误"])
@@ -73,7 +84,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         return https.createServer(option, app).listen(options["point"],function (){
             console.log(`已经开启https协议${options["point"]}端口监听`);
             for (const i of data) {
-                console.log(`\\${i[0]}\t————>\t${i[1]}`)
+                console.log(`\\${i.name}\t————>\t${i.url}\t${i.userName}`)
             }
         });
     }else {
@@ -81,7 +92,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         return http.createServer(app).listen(options["point"],function () {
             console.log(`已经开启http协议${options["point"]}端口监听`);
             for (const i of data) {
-                console.log(`\\${i[0]}\t————>\t${i[1]}`)
+                console.log(`\\${i.name}\t————>\t${i.url}\t${i.userName}`)
             }
         })
     }

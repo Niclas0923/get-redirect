@@ -16,8 +16,8 @@
     <!-- Bootstrap 核心 JavaScript 文件 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/js/bootstrap.min.js"></script>
     <!-- vue -->
-<!--    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.js"></script>-->
-    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.js"></script>
+<!--    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.7.14/vue.min.js"></script>-->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -66,9 +66,10 @@
                 <button class="btn btn-primary" id="add" @click="addOne">添加</button>
             </div>
             <!-- 下面信息栏 -->
-            <div class="card-page" v-for="i in list" :key="i[0]">
-                <h4>{{i[0]}}</h4>
-                <a :href="i[1]" target="_blank">{{i[1]}}</a>
+            <div class="card-page" v-for="i in list" :key="i.id">
+                <h4>{{i.name}}</h4>
+                <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
+                <a :href="i.url" target="_blank">{{i.url}}</a>
                 <a class="false" href="#" @click="delOne(i)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
                         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>

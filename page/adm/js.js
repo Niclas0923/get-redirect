@@ -58,9 +58,9 @@ const vm = new Vue({
         },
         // 删除一个的函数
         delOne(i){
-            if (confirm(`确定要删除索引 ${i[0]} 吗？`)) {
+            if (confirm(`确定要删除索引 ${i.name} 吗？`)) {
                 // 用户点击了“确定”按钮，继续执行后面的代码
-                $.post("/systemServer/removeOne",{name:this.user.name,password:this.user.pw,tag:i[0]},(res)=>{
+                $.post("/systemServer/removeOne",{name:this.user.name,password:this.user.pw,tag:i.name},(res)=>{
                     this.getNewList()
                     alert(res[0])
                 },"json")
