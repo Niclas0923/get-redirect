@@ -8,7 +8,8 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use('/', userRoutes);
-    app.use(express.static('./page'))
+    // app.use(express.static('./page'))
+    app.use('/adm', express.static('./page/dist'));
 
     // 测试用户名和密码的函数
     const testLogin = (name,passwd)=>{
@@ -37,21 +38,12 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     })
 
     app.post("/systemServer/removeOne",(req, res)=>{
-        const {name,password,tag} = req.body
+        const {name,password,tagId} = req.body
         if (testLogin(name,password)){
             let data = JSON.parse(String(fs.readFileSync("./config/data.json")))
-
-            // function removeFromArray(target, array) {
-            //     for (let i = array.length - 1; i >= 0; i--) {
-            //         if (Array.isArray(array[i]) && array[i][0] === target) {
-            //             array.splice(i, 1);
-            //         }
-            //     }
-            // }
-
-            data = data.filter(i => i.name !== tag)
-
-            // removeFromArray(tag, data);
+            // 过滤出删除后的数组
+            data = data.filter(i => i.id !== tagId)
+            // 写入
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
             res.send(["成功"])
         }else res.send(["用户名或密码错误"])
