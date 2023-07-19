@@ -75,16 +75,18 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }
         return https.createServer(option, app).listen(options["point"],function (){
             console.log(`已经开启https协议${options["point"]}端口监听`);
+            console.log(`请访问 https://localhost${options["point"]===433?"":":"+options["point"]}/adm 进入管理界面`)
             for (const i of data) {
-                console.log(`\\${i.name}\t————>\t${i.url}\t${i.userName}`)
+                console.log(`\/${i.name}\t————>\t${i.url}\t${i.userName}`)
             }
         });
     }else {
         const http = require("http")
         return http.createServer(app).listen(options["point"],function () {
             console.log(`已经开启http协议${options["point"]}端口监听`);
+            console.log(`请访问 http://localhost${options["point"]===80?"":":"+options["point"]}/adm 进入管理界面`)
             for (const i of data) {
-                console.log(`\\${i.name}\t————>\t${i.url}\t${i.userName}`)
+                console.log(`\/${i.name}\t————>\t${i.url}\t${i.userName}`)
             }
         })
     }
