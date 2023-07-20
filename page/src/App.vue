@@ -119,20 +119,26 @@ export default {
         this.page.now = i.name
         // 如果修改后的页面是log，那么获取数据
         if (this.page.now === "log"){
-          axios
-              .post("/systemServer/log",{name:this.user.name,password:this.user.password})
-              .then((res)=>{
-                if (res.data[0] === "用户名或密码错误"){
-                  alert(res.data[0])
-                }else {
-                  this.log = res.data
-                }
-              })
-              .catch(err=>{
-                console.error(err)
-              })
+          this.getLogValue()
         }
       }
+      const nav = document.querySelector('.navbar-collapse');
+      nav.classList.toggle('show');
+    },
+    // 获取log信息
+    getLogValue(){
+      axios
+          .post("/systemServer/log",{name:this.user.name,password:this.user.password})
+          .then((res)=>{
+            if (res.data[0] === "用户名或密码错误"){
+              alert(res.data[0])
+            }else {
+              this.log = res.data
+            }
+          })
+          .catch(err=>{
+            console.error(err)
+          })
     }
   },
   mounted() {
@@ -141,6 +147,10 @@ export default {
     if (userVal){
       // 如果存在就读取，之后尝试登录
       this.tryLogIn(userVal["name"],userVal["password"],false)
+      // 1.5秒后尝试获取log
+      setTimeout(()=>{
+        this.getLogValue()
+      },1500)
     }
     // 设置信息传递回来的几个事件
     this.$bus.$on("addOne",this.addOne)
