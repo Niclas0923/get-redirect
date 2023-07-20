@@ -7,7 +7,10 @@
           name="animate__animated animate__bounce"
           enter-active-class="animate__fadeInDown"
       >
-        <PageTop/>
+        <PageTop
+            :page="page"
+            :changePage="changePage"
+        />
       </transition>
       <div style="height: 1vh;"></div>
       <PageValue :list="list"/>
@@ -37,6 +40,14 @@ export default {
       user:{
         name:"",
         password:""
+      },
+      // 控制页面切换的数据
+      page:{
+        now:"list",
+        all:[
+          {name: "list", on: true},
+          {name: "log", on: false}
+        ]
       }
     }
   },
@@ -98,6 +109,12 @@ export default {
             .catch(err=>{
               console.error(err)
             })
+      }
+    },
+    // 修改页面
+    changePage(i){
+      if (i.name !== this.page.now && i.on){
+        this.page.now = i.name
       }
     }
   },
