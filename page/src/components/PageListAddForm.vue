@@ -31,7 +31,7 @@
 <script>
 import "animate.css"
 export default {
-  name: 'PageValueAdd',
+  name: 'PageListAddForm',
   props: ["allTags"],
   data(){
     return{

@@ -32,7 +32,7 @@
 <script>
 import "animate.css"
 export default {
-  name: 'PageValueCards',
+  name: 'PageListCards',
   props: ["list"],
   methods:{
     delOne(i){

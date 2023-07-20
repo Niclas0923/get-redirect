@@ -1,6 +1,10 @@
 <template>
   <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-<!--    添加按钮 -->
+    <!-- 信息列表 -->
+    <PageListCards
+        :list="list"
+    />
+    <!-- 添加按钮 -->
     <transition
         appear
         name="animate__animated animate__bounce"
@@ -13,20 +17,18 @@
         </svg>
       </div>
     </transition>
-    <PageValueAdd
+    <!-- 添加菜单 -->
+    <PageListAddForm
         v-show="addOn"
         :allTags="allTags"
-    />
-    <PageValueCards
-        :list="list"
     />
   </div>
 </template>
 
 <script>
 import "animate.css"
-import PageValueAdd from "@/components/PageValueAdd.vue";
-import PageValueCards from "@/components/PageValueCards.vue";
+import PageListAddForm from "@/components/PageListAddForm.vue";
+import PageListCards from "@/components/PageListCards.vue";
 export default {
   name: 'PageList',
   props: ["list"],
@@ -36,8 +38,8 @@ export default {
     }
   },
   components:{
-    PageValueAdd,
-    PageValueCards
+    PageListAddForm,
+    PageListCards
   },
   computed:{
     allTags(){
