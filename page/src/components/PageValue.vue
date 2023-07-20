@@ -13,15 +13,10 @@
         </svg>
       </div>
     </transition>
-    <transition
-        name="animate__animated animate__bounce"
-        enter-active-class="animate__zoomInDown"
-    >
-      <PageValueAdd
-          v-show="addOn"
-          :allTags="allTags"
-      />
-    </transition>
+    <PageValueAdd
+        v-show="addOn"
+        :allTags="allTags"
+    />
     <PageValueCards
         :list="list"
     />

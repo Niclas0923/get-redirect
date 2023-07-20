@@ -1,29 +1,35 @@
 <template>
-  <div>
-    <!-- 提示栏 -->
-    <div class="card-page" v-pre style="padding: 20px 15px">
-      <ul>
-        <li>索引无需添加斜杠 “/”。</li>
-        <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
-        <li>URL要设置成转跳链接时候一定要添加“http(s)://”，不然会被认为是相对链接。</li>
-      </ul>
-    </div>
-    <!-- 添加表单 -->
-    <div class="card-page" style="padding: 35px">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">索引</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" v-model="path">
+  <transition
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__zoomInDown"
+  >
+    <div>
+      <!-- 提示栏 -->
+      <div class="card-page" v-pre style="padding: 20px 15px">
+        <ul>
+          <li>索引无需添加斜杠 “/”。</li>
+          <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
+          <li>URL要设置成转跳链接时候一定要添加“http(s)://”，不然会被认为是相对链接。</li>
+        </ul>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">URL</label>
-        <input type="url" class="form-control" id="exampleInputPassword1" v-model="url"  @keydown.enter="addOne">
+      <!-- 添加表单 -->
+      <div class="card-page" style="padding: 35px">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">索引</label>
+          <input type="text" class="form-control" id="exampleInputEmail1" v-model="path">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">URL</label>
+          <input type="url" class="form-control" id="exampleInputPassword1" v-model="url"  @keydown.enter="addOne">
+        </div>
+        <button class="btn btn-primary" id="add" @click="addOne">添加</button>
       </div>
-      <button class="btn btn-primary" id="add" @click="addOne">添加</button>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
+import "animate.css"
 export default {
   name: 'PageValueAdd',
   props: ["allTags"],
@@ -35,7 +41,6 @@ export default {
   },
   methods:{
     addOne(){
-      console.log(this.path,this.url)
       // 不能为空
       if (this.path.length !== 0 && this.url.length !== 0){
         const regex = /[<>\\]/;

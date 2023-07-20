@@ -1,17 +1,11 @@
 <template>
   <div>
     <log-in v-if="!init" :tryLogIn="tryLogIn"/>
-    <div v-if="init">
-      <transition
-          appear
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__fadeInDown"
-      >
-        <PageTop
-            :page="page"
-            :changePage="changePage"
-        />
-      </transition>
+    <div v-if="init && page.now === 'list'">
+      <PageTop
+          :page="page"
+          :changePage="changePage"
+      />
       <div style="height: 1vh;"></div>
       <PageValue :list="list"/>
       <div style="height: 6vh;"></div>
@@ -24,7 +18,6 @@ import LogIn from "@/components/LogIn.vue";
 import PageTop from "@/components/PageTop.vue";
 import PageValue from "@/components/PageValue.vue";
 import axios from "axios";
-import "animate.css"
 
 export default {
   name: 'App',
