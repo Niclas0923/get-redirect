@@ -7,8 +7,17 @@
         leave-active-class="animate__bounceOut"
     >
       <div class="card-page" v-for="i in list" :key="i.id">
-        <h4>{{i.name}}</h4>
-        <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
+        <figure>
+          <blockquote class="blockquote">
+            <h4>{{i.name}}</h4>
+          </blockquote>
+          <figcaption class="blockquote-footer" v-if="i.time">
+            {{i.time}}
+          </figcaption>
+          <figcaption class="blockquote-footer">
+            {{i.userName}}
+          </figcaption>
+        </figure>
         <a :href="i.url" target="_blank" class="as">{{i.url}}</a>
         <a class="false" href="#" @click="delOne(i)">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
@@ -48,5 +57,14 @@ export default {
 .as{
   display: inline-block;
   word-break: break-all;
+}
+.blockquote{
+  margin: 0;
+}
+.blockquote-footer{
+  margin: 3px 0 0;
+}
+figure{
+  margin: 0 0 3px;
 }
 </style>
