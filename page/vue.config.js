@@ -7,7 +7,7 @@ module.exports = defineConfig({
   devServer:{
     // 指定开发服务器的端口号以侦听
     port: 8082,
-    proxy:`http://localhost:${data["http"]["point"]}}`
+    proxy:`http://localhost:${data["http"]["point"]}`
   },
   publicPath:"./"
 })
