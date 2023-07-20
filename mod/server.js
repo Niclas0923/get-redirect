@@ -73,6 +73,15 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else res.send(["用户名或密码错误"])
     })
 
+    // 返回log文件
+    app.post("/systemServer/log",(req,res)=>{
+        const {name,password} = req.body
+        if (testLogin(name,password)){
+            const data = JSON.parse(String(fs.readFileSync("./config/log.json")))
+            res.send(data)
+        }else res.send(["用户名或密码错误"])
+    })
+
 
     // 判断协议
     if (httpsO){

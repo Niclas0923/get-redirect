@@ -11,6 +11,11 @@
         v-if="init && page.now === 'list'"
         :list="list"
     />
+<!--    log页面 -->
+    <PageLog
+        v-if="init && page.now === 'log'"
+        :log="log"
+    />
   </div>
 </template>
 
@@ -18,6 +23,7 @@
 import LogIn from "@/components/LogIn.vue";
 import PageTop from "@/components/PageTop.vue";
 import PageList from "@/components/PageList.vue";
+import PageLog from "@/components/PageLog.vue";
 import axios from "axios";
 
 export default {
@@ -25,12 +31,14 @@ export default {
   components: {
     LogIn,
     PageTop,
-    PageList
+    PageList,
+    PageLog
   },
   data(){
     return{
       init:false,
       list:[],
+      log:[],
       user:{
         name:"",
         password:""
@@ -40,7 +48,7 @@ export default {
         now:"list",
         all:[
           {name: "list", on: true},
-          {name: "log", on: false}
+          {name: "log", on: true}
         ]
       }
     }
@@ -109,6 +117,21 @@ export default {
     changePage(i){
       if (i.name !== this.page.now && i.on){
         this.page.now = i.name
+        // 如果修改后的页面是log，那么获取数据
+        if (this.page.now === "log"){
+          axios
+              .post("/systemServer/log",{name:this.user.name,password:this.user.password})
+              .then((res)=>{
+                if (res.data[0] === "用户名或密码错误"){
+                  alert(res.data[0])
+                }else {
+                  this.log = res.data
+                }
+              })
+              .catch(err=>{
+                console.error(err)
+              })
+        }
       }
     }
   },
