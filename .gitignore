@@ -128,7 +128,8 @@ out
 .pnp.*
 
 user.js
-data.json
+config/data.json
+config/log.json
 
 routes/
 

@@ -4,6 +4,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     const fs = require("fs")
     const shortid = require('shortid');
     const getTime = require("./time").time
+    const whiteLog = require("./whiteLog").whiteLog
     // 开启监听测试
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
@@ -42,6 +43,8 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         const {name,password,tagId} = req.body
         if (testLogin(name,password)){
             let data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+            // 写入log
+            whiteLog(name,getTime(),data.filter(i => i.id === tagId)[0],"removeOne")
             // 过滤出删除后的数组
             data = data.filter(i => i.id !== tagId)
             // 写入
@@ -64,6 +67,8 @@ const server = (options,userRoutes,data,httpsO=false)=>{
                 time
             })
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
+            // 写入log
+            whiteLog(name,time,{name:tag, url, userName:name, id, time},"addOne")
             res.send(["成功"])
         }else res.send(["用户名或密码错误"])
     })

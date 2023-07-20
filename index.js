@@ -11,12 +11,19 @@ if (!fs.existsSync("./routes")) fs.mkdirSync("./routes");
 // 单次运行函数
 const ones = ()=>{
     const one = data === "配置文件"
+    // 测试data文件是否存在
     let data0
     try{
         data0 = JSON.parse(String(fs.readFileSync("./config/data.json")))
     }catch (e) {
         data0 = []
         fs.writeFileSync("./config/data.json",JSON.stringify([]))
+    }
+    // 测试log文件是否存在
+    try{
+        JSON.parse(String(fs.readFileSync("./config/log.json")))
+    }catch (e) {
+        fs.writeFileSync("./config/log.json",JSON.stringify([]))
     }
     // 判断是否与之前相同，不相同则执行下列句子
     if (JSON.stringify(data) !== JSON.stringify(data0)){
