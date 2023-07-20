@@ -1,22 +1,23 @@
 <template>
   <div>
     <log-in v-if="!init" :tryLogIn="tryLogIn"/>
-    <div v-if="init && page.now === 'list'">
-      <PageTop
-          :page="page"
-          :changePage="changePage"
-      />
-      <div style="height: 1vh;"></div>
-      <PageValue :list="list"/>
-      <div style="height: 6vh;"></div>
-    </div>
+    <PageTop
+        :page="page"
+        :changePage="changePage"
+        v-if="init"
+    />
+<!--    list页面 -->
+    <PageList
+        v-if="init && page.now === 'list'"
+        :list="list"
+    />
   </div>
 </template>
 
 <script>
 import LogIn from "@/components/LogIn.vue";
 import PageTop from "@/components/PageTop.vue";
-import PageValue from "@/components/PageValue.vue";
+import PageList from "@/components/PageList.vue";
 import axios from "axios";
 
 export default {
@@ -24,7 +25,7 @@ export default {
   components: {
     LogIn,
     PageTop,
-    PageValue
+    PageList
   },
   data(){
     return{
@@ -133,6 +134,7 @@ export default {
 
 body{
   min-height: 100%;
+  padding-bottom: 6vh;
 }
 
 /*卡片*/

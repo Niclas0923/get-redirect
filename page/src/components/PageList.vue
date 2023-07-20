@@ -28,7 +28,7 @@ import "animate.css"
 import PageValueAdd from "@/components/PageValueAdd.vue";
 import PageValueCards from "@/components/PageValueCards.vue";
 export default {
-  name: 'PageValue',
+  name: 'PageList',
   props: ["list"],
   data(){
     return {

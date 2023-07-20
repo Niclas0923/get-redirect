@@ -40,5 +40,6 @@ export default {
 <style scoped>
 nav{
   box-shadow: 0 0 5px gray;
+  margin-bottom: 1vh;
 }
 </style>
