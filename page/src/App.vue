@@ -103,8 +103,8 @@ export default {
         axios
             .post("/systemServer/removeOne",{name:this.user.name,password:this.user.password,tagId:i.id})
             .then((res)=>{
-              // 直接输出返回的信息
-              alert(res.data[0])
+              // 不是成功则输出返回的信息
+              if (res.data[0] !== "成功") alert(res.data[0])
               // 然后获取新数据
               this.getNewList()
             })
