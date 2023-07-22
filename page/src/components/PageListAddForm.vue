@@ -5,7 +5,7 @@
   >
     <div>
       <!-- 提示栏 -->
-      <div class="card-page" v-pre style="padding: 20px 15px">
+      <div class="card-page warning" v-pre>
         <ul>
           <li>索引无需添加斜杠 “/”。</li>
           <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
@@ -13,16 +13,22 @@
         </ul>
       </div>
       <!-- 添加表单 -->
-      <div class="card-page" style="padding: 35px">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">索引</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" v-model="path">
+      <div class="card-page from ">
+        <div class="row g-2 mb-2">
+          <div class="col-md">
+            <div class="form-floating">
+              <input type="email" class="form-control" placeholder="索引" v-model="path">
+              <label>索引</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
+              <input type="url" class="form-control" placeholder="URL" v-model="url" @keydown.enter="addOne">
+              <label>URL</label>
+            </div>
+          </div>
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">URL</label>
-          <input type="url" class="form-control" id="exampleInputPassword1" v-model="url"  @keydown.enter="addOne">
-        </div>
-        <button class="btn btn-primary" id="add" @click="addOne">添加</button>
+        <button class="btn btn-primary" @click="addOne">添加</button>
       </div>
     </div>
   </transition>
@@ -66,6 +72,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.warning{
+  padding: 20px 15px;
+}
 .card-page>ul{
   margin-bottom: 0;
 }
