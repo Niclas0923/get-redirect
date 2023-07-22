@@ -164,18 +164,8 @@ export default {
 </script>
 
 <style>
-
 body{
   min-height: 100vh;
   padding-bottom: 6vh;
-}
-
-/*卡片*/
-.card-page{
-  padding: 20px 35px;
-  margin: 20px;
-  box-shadow: 0 0 5px gray;
-  border-radius: 10px;
-  position: relative;
 }
 </style>

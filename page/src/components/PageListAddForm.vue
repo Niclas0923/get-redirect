@@ -13,7 +13,7 @@
         </ul>
       </div>
       <!-- 添加表单 -->
-      <div class="card-page from ">
+      <div class="card-page from">
         <div class="row g-2 mb-2">
           <div class="col-md">
             <div class="form-floating">
@@ -77,5 +77,19 @@ export default {
 }
 .card-page>ul{
   margin-bottom: 0;
+}
+/*卡片*/
+.card-page{
+  padding: 20px 35px;
+  box-shadow: 0 0 5px #bbbbbb;
+  border-radius: 6px;
+  position: relative;
+  margin: 24px 0;
+}
+.from{
+  overflow: auto;
+}
+button{
+  float: right;
 }
 </style>
