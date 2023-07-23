@@ -3,25 +3,17 @@
       name="animate__animated animate__bounce"
       enter-active-class="animate__zoomInDown"
   >
-    <div>
-      <!-- 提示栏 -->
-      <div class="card-page warning" v-pre>
-        <ul>
-          <li>索引无需添加斜杠 “/”。</li>
-          <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
-          <li>URL要设置成转跳链接时候一定要添加“http(s)://”，不然会被认为是相对链接。</li>
-        </ul>
-      </div>
+    <div class="col-12 offset-0 col-md-6 offset-md-3">
       <!-- 添加表单 -->
       <div class="card-page from">
         <div class="row g-2 mb-2">
-          <div class="col-md">
+          <div class="col-xxl">
             <div class="form-floating">
               <input type="email" class="form-control" placeholder="索引" v-model="path">
               <label>索引</label>
             </div>
           </div>
-          <div class="col-md">
+          <div class="col-xxl">
             <div class="form-floating">
               <input type="url" class="form-control" placeholder="URL" v-model="url" @keydown.enter="addOne">
               <label>URL</label>
@@ -29,6 +21,14 @@
           </div>
         </div>
         <button class="btn btn-primary" @click="addOne">添加</button>
+      </div>
+      <!-- 提示栏 -->
+      <div class="card-page warning" v-pre>
+        <ul>
+          <li>索引无需添加斜杠 “/”。</li>
+          <li>URL可设置成转跳链接，也可以设置为相对路径，例如“#”。</li>
+          <li>URL要设置成转跳链接时候一定要添加“http(s)://”，不然会被认为是相对链接。</li>
+        </ul>
       </div>
     </div>
   </transition>
