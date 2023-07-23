@@ -17,15 +17,17 @@ npm i -g n
 n stable
 ```
 ### 安装和配置
-1 克隆整个文件或者直接下载zip文件解压
+1 安装nodejs(如已安装可以忽略)
 
-2 终端进入文件夹，运行下方命令下载安装运行库
+2 克隆整个文件或者直接下载zip文件解压
+
+3 终端进入文件夹，运行下方命令下载安装运行库（发行版本已经内置了这些库，可以跳过）
 ```shell
 npm i
 ```
-3 打开config文件夹，修改server.json和user.json文件，server.json的内容是服务器的配置，user.json是用户的配置文件，可以配置多个用户
+4 打开config文件夹，修改server.json和user.json文件，server.json的内容是服务器的配置，user.json是用户的配置文件，可以配置多个用户
 
-4 运行下方命令运行项目
+5 运行下方命令运行项目
 ```shell
 npm run st
 ```
@@ -42,7 +44,7 @@ npm run st
 
 ### 更新注意
 
-## 1.0.2-1.0.3更新
+## 开发版1.0.2-1.0.3更新
 数据需要进行转化，转化可以直接运行change文件夹中的change1函数，需要进入change1中修改姓名字符串，之后再运行。
 ```shell
 cd change
