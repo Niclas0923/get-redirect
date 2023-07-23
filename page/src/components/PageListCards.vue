@@ -88,10 +88,13 @@ export default {
         top: 15px;
       }
     }
+    .card:hover{
+      box-shadow: 0 0 5px gray;
+    }
 
     // 添加按钮
     .btn-add{
-      box-shadow: 0 0 10px #d9d9d9;
+      box-shadow: 0 0 5px #bbbbbb;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -99,6 +102,7 @@ export default {
     }
     .btn-add:hover{
       background-color: #f8f9fa;
+      box-shadow: 0 0 10px #bbbbbb;
     }
 
     // 所有引入图标
