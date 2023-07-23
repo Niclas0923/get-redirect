@@ -2,8 +2,7 @@
   <transition
       appear
       name="animate__animated animate__bounce"
-      enter-active-class="animate__bounceInUp"
-      leave-active-class="animate__bounceOut"
+      enter-active-class="animate__fadeInDown"
   >
     <div class="col-12 offset-0 col-md-8 offset-md-2 col-xxl-6 offset-xxl-3 div-input">
 <!--      输入框 -->
@@ -18,6 +17,16 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-logo" viewBox="0 0 16 16" v-pre>
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
       </svg>
+<!--      搜索提示 -->
+      <div class="div-tips">
+        <div class="div-tips-in">
+          <a href="#" v-for="i in tipsOn" :key="i" @click="searchValue = i" class="as">
+            <div class="tips-for-search">
+              {{i}}
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
   </transition>
 </template>
@@ -30,7 +39,47 @@ export default {
       searchValue:""
     }
   },
-  props:["valueChange"],
+  props:["valueChange","list"],
+  computed:{
+    tipsOn(){
+      console.log(this.list)
+      const ports = []
+      const hostNames = []
+      const admNames = []
+      this.list.forEach(e=>{
+        try {
+          const url = new URL(e.url);
+          const domain = url.hostname;
+          const port = url.port;
+
+          hostNames.push(domain)
+          ports.push(port)
+        } catch (err) {
+          console.log(err)
+        }
+        admNames.push(e.userName)
+      })
+      // 去重域名
+      const minHostName = [...new Set(hostNames)]
+      // 去重管理员姓名
+      const minAdmNames = [...new Set(admNames)]
+      let allList = []
+      // 域名
+      // 只有一个域名，并且全都是与之相关
+      if (minHostName.length === 1 && this.list.length === hostNames.length){
+        // 不添加
+      }else {
+        allList = allList.concat(minHostName)
+      }
+      // 端口
+      allList = allList.concat(ports)
+      // 管理员名称
+      if (minAdmNames.length !== 1){
+        allList = allList.concat(minAdmNames)
+      }
+      return allList
+    }
+  },
   watch:{
     searchValue(a){
       this.valueChange(a)
@@ -76,25 +125,40 @@ export default {
     transform: translate(0,-50%);
   }
 
-}
-.input{
-  width: 100%;
-  height: 40px;
-  box-shadow: 0 0 5px #bbbbbb;
-  padding: 0 15px;
-  border-radius: 6px;
-  border: none;
-  outline: 2px solid white;
-  outline-offset: -2px;
-}
-.input:focus {
-  outline:2px solid lightgrey;
-}
-.clear{
-  position: absolute;
-  color:gray;
-  top: 48%;
-  right: 10px;
-  transform: translate(0,-50%);
+  .div-tips::-webkit-scrollbar {
+    display: none; /* Safari 和 Chrome */
+  }
+  .div-tips{
+    margin: 10px 0 -10px -5px;
+    display: block;
+    overflow-x: auto;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+
+    .div-tips-in{
+      /* 设置容器为块级元素，以确保其宽度被撑开 */
+      display: block;
+      /* 设置容器内子元素横向排布 */
+      white-space: nowrap; /* 防止子元素折行 */
+
+      .as{
+        display: inline-block;
+
+        .tips-for-search{
+          margin: 5px 8px 5px 5px;
+          border-radius: 6px;
+          box-shadow: 0 0 5px #bbbbbb;
+          padding: 2px 4px;
+          float: left;
+          font-size: 13px;
+          color: gray;
+        }
+        .tips-for-search:hover {
+          box-shadow: 0 0 5px gray;
+        }
+      }
+    }
+  }
 }
 </style>

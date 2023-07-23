@@ -1,7 +1,9 @@
 <template>
   <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+    <!-- 搜索框 -->
     <PageListSearch
         :valueChange="valueChange"
+        :list="list"
     />
     <!-- 信息列表 -->
     <PageListCards
