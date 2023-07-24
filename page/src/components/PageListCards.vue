@@ -6,8 +6,8 @@
       leave-active-class="animate__fadeOutDownBig"
       class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4"
   >
-    <div class="col" v-for="i in listOn" :key="i.id+1" v-show="i.show">
-      <div class="card h-100">
+    <div class="col" v-for="i in listOn" :key="i.id" v-show="i.show">
+      <div class="card h-100" v-if="i.id !== add.id">
         <div class="card-body">
           <h5 class="card-title mb-2">{{i.name}}</h5>
           <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
@@ -22,16 +22,13 @@
           </svg>
         </a>
       </div>
-    </div>
-<!--    添加按钮 -->
-    <div class="col col-add" v-if="addOn" key="add-btn">
-      <button class="btn btn-add" @click="add">
+      <!-- 添加按钮 -->
+      <button class="btn btn-add" @click="addBtn(i)" v-if="i.id === add.id">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus add-svg" viewBox="0 0 16 16">
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
         </svg>
       </button>
     </div>
-
   </transition-group>
 </template>
 
@@ -42,15 +39,19 @@ export default {
   props: ["list","addClick","searchValue"],
   data(){
     return{
-      addOn:true
+      add:{
+        id:"addBtn123",
+        show:true
+      }
     }
   },
   methods:{
     delOne(i){
       this.$bus.$emit("delOne",i)
     },
-    add(){
-      this.addOn = false
+    addBtn(i){
+      this.add.show = false
+      i.show = false
       this.addClick()
     },
     showCard(i){
@@ -66,12 +67,15 @@ export default {
   },
   computed:{
     listOn(){
+      const add = this.add
+      add.show = this.searchValue !== "🤮#$%^&*(😂"
       if (this.searchValue === ""){
         const l = []
         for (let i of this.list){
           i.show = true
           l.push(i)
         }
+        l.push(add)
         return l
       }else {
         const trueArr = []
@@ -85,7 +89,15 @@ export default {
             falseArr.push(i)
           }
         })
-        return trueArr.concat(falseArr)
+        let sendArr = []
+        if (trueArr.length === 0){
+          falseArr.push(add)
+          sendArr = falseArr
+        }else {
+          trueArr.push(add)
+          sendArr = trueArr.concat(falseArr)
+        }
+        return sendArr
       }
     }
   }
