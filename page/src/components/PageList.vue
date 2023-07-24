@@ -7,7 +7,8 @@
     />
     <!-- 信息列表 -->
     <PageListCards
-        :list="listOn"
+        :list="list"
+        :searchValue="searchValue"
         :addClick="addClick"
     />
     <!-- 添加菜单 -->
@@ -44,20 +45,6 @@ export default {
         data.push(i.name)
       }
       return data
-    },
-    listOn(){
-      if (this.searchValue === ""){
-        return this.list
-      }else {
-        // 用于判断2是否在1内，不区分大小写
-        const x = (str,str2)=>{
-          return str.toLowerCase().includes(str2.toLowerCase())
-        }
-        const val = this.searchValue
-        return this.list.filter((i)=>{
-          return (x(i.name,val) || x(i.url,val) || x(i.time,val) || x(i.userName,val))
-        })
-      }
     }
   },
   methods:{

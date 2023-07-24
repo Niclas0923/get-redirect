@@ -1,54 +1,45 @@
 <template>
-  <div>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4">
-      <div class="col" v-for="i in list" :key="i.id+1">
-        <transition
-            appear
-            name="animate__animated animate__bounce"
-            enter-active-class="animate__bounceInUp"
-            leave-active-class="animate__bounceOut"
-        >
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title mb-2">{{i.name}}</h5>
-              <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
-              <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">{{i.time}}</small>
-            </div>
-            <a class="false" href="#" @click="delOne(i)">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-              </svg>
-            </a>
-          </div>
-        </transition>
-      </div>
-      <transition
-          appear
-          name="animate__animated animate__bounce"
-          enter-active-class="animate__bounceInUp"
-          leave-active-class="animate__bounceOut"
-          v-if="addOn"
-      >
-        <div class="col col-add">
-          <button class="btn btn-add" @click="add">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus add-svg" viewBox="0 0 16 16">
-              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-            </svg>
-          </button>
+  <transition-group
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__bounceInUp"
+      leave-active-class="animate__backOutDown"
+      class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4"
+  >
+    <div class="col" v-for="i in listOn" :key="i.id+1" v-show="i.show">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-2">{{i.name}}</h5>
+          <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
+          <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
         </div>
-      </transition>
+        <div class="card-footer">
+          <small class="text-muted">{{i.time}}</small>
+        </div>
+        <a class="false" href="#" @click="delOne(i)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
+            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
+<!--    添加按钮 -->
+    <div class="col col-add" v-if="addOn" key="add-btn">
+      <button class="btn btn-add" @click="add">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus add-svg" viewBox="0 0 16 16">
+          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+        </svg>
+      </button>
+    </div>
+
+  </transition-group>
 </template>
 
 <script>
 import "animate.css"
 export default {
   name: 'PageListCards',
-  props: ["list","addClick"],
+  props: ["list","addClick","searchValue"],
   data(){
     return{
       addOn:true
@@ -61,6 +52,41 @@ export default {
     add(){
       this.addOn = false
       this.addClick()
+    },
+    showCard(i){
+      if (this.searchValue === ""){
+        return true
+      }else {
+        const val = this.searchValue
+        // 用于判断2是否在1内，不区分大小写
+        const x = (str,str2) => str.toLowerCase().includes(str2.toLowerCase())
+        return (x(i.name,val) || x(i.url,val) || x(i.time,val) || x(i.userName,val))
+      }
+    }
+  },
+  computed:{
+    listOn(){
+      if (this.searchValue === ""){
+        const l = []
+        for (let i of this.list){
+          i.show = true
+          l.push(i)
+        }
+        return l
+      }else {
+        const trueArr = []
+        const falseArr = []
+        this.list.forEach(i =>{
+          if (this.showCard(i)) {
+            i.show = true
+            trueArr.push(i)
+          } else {
+            i.show = false
+            falseArr.push(i)
+          }
+        })
+        return trueArr.concat(falseArr)
+      }
     }
   }
 }
