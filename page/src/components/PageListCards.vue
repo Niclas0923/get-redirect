@@ -3,7 +3,7 @@
       appear
       name="animate__animated animate__bounce"
       enter-active-class="animate__bounceInUp"
-      leave-active-class="animate__backOutDown"
+      leave-active-class="animate__fadeOutDownBig"
       class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4"
   >
     <div class="col" v-for="i in listOn" :key="i.id+1" v-show="i.show">
