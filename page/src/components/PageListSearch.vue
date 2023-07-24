@@ -53,7 +53,7 @@ export default {
           const port = url.port;
 
           hostNames.push(domain)
-          ports.push(port)
+          if (port) ports.push(port)
         } catch (err) {
           console.log(err)
         }
@@ -63,6 +63,8 @@ export default {
       const minHostName = [...new Set(hostNames)]
       // 去重管理员姓名
       const minAdmNames = [...new Set(admNames)]
+      // 端口去重
+      const minPorts = [...new Set(ports)]
       let allList = []
       // 域名
       // 只有一个域名，并且全都是与之相关
@@ -72,12 +74,13 @@ export default {
         allList = allList.concat(minHostName)
       }
       // 端口
-      allList = allList.concat(ports)
+      allList = allList.concat(minPorts)
       // 管理员名称
       if (minAdmNames.length !== 1){
         allList = allList.concat(minAdmNames)
       }
-      return allList
+      // 总体去重
+      return [...new Set(allList)]
     }
   },
   watch:{
