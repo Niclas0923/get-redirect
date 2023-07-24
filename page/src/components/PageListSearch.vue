@@ -93,7 +93,7 @@ export default {
       // 开启延时
       this.timeoutI = setTimeout(()=>{
         this.valueChange(a)
-      },250)
+      },550)
     }
   }
 }
