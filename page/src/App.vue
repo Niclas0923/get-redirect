@@ -167,5 +167,6 @@ export default {
 body{
   min-height: 100vh;
   padding-bottom: 6vh;
+  overflow-y: scroll;
 }
 </style>
