@@ -21,9 +21,9 @@
 
 <script>
 import "animate.css"
-import PageListAddForm from "@/components/PageListAddForm.vue";
-import PageListCards from "@/components/PageListCards.vue";
-import PageListSearch from "@/components/PageListSearch.vue";
+import PageListAddForm from "@/components/page/list/PageListAddForm.vue";
+import PageListCards from "@/components/page/list/PageListCards.vue";
+import PageListSearch from "@/components/page/list/PageListSearch.vue";
 export default {
   name: 'PageList',
   props: ["list"],

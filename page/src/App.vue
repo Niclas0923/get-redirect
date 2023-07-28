@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import LogIn from "@/components/LogIn.vue";
-import PageTop from "@/components/PageTop.vue";
-import PageList from "@/components/PageList.vue";
-import PageLog from "@/components/PageLog.vue";
+import LogIn from "@/components/login/LogIn.vue";
+import PageTop from "@/components/page/PageTop.vue";
+import PageList from "@/components/page/list/PageList.vue";
+import PageLog from "@/components/page/log/PageLog.vue";
 import axios from "axios";
 
 export default {
