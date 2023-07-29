@@ -8,11 +8,11 @@
 <!--      输入框 -->
       <input type="text" class="input" v-model.trim="searchValue"/>
 <!--      删除按钮 -->
-      <a href="#" @click="searchValue=''" v-show="searchValue.length">
+      <div @click="searchValue=''" v-show="searchValue.length" id="del">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg clear" viewBox="0 0 16 16" v-pre>
           <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
         </svg>
-      </a>
+      </div>
 <!--      搜索图标 -->
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search search-logo" viewBox="0 0 16 16" v-pre>
         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -20,11 +20,9 @@
 <!--      搜索提示 -->
       <div class="div-tips">
         <div class="div-tips-in">
-          <a href="#" v-for="i in tipsOn" :key="i" @click="searchValue = i" class="as">
-            <div class="tips-for-search">
-              {{i}}
-            </div>
-          </a>
+          <div class="tips-for-search" v-for="i in tipsOn" :key="i" @click="searchValue = i">
+            {{i}}
+          </div>
         </div>
       </div>
     </div>
@@ -43,7 +41,6 @@ export default {
   props:["valueChange","list"],
   computed:{
     tipsOn(){
-      console.log(this.list)
       const ports = []
       const hostNames = []
       const admNames = []
@@ -121,6 +118,10 @@ export default {
   .input:hover {
     box-shadow: 0 0 5px gray;
   }
+  #del{
+    // 鼠标边为可选
+    cursor: pointer;
+  }
   .clear{
     position: absolute;
     color:gray;
@@ -153,21 +154,20 @@ export default {
       /* 设置容器内子元素横向排布 */
       white-space: nowrap; /* 防止子元素折行 */
 
-      .as{
+      .tips-for-search{
         display: inline-block;
-
-        .tips-for-search{
-          margin: 5px 8px 5px 5px;
-          border-radius: 6px;
-          box-shadow: 0 0 5px #bbbbbb;
-          padding: 2px 4px;
-          float: left;
-          font-size: 13px;
-          color: gray;
-        }
-        .tips-for-search:hover {
-          box-shadow: 0 0 5px gray;
-        }
+        margin: 5px 8px 5px 5px;
+        border-radius: 6px;
+        box-shadow: 0 0 5px #bbbbbb;
+        padding: 2px 4px;
+        float: left;
+        font-size: 13px;
+        color: gray;
+        // 鼠标边为可选
+        cursor: pointer;
+      }
+      .tips-for-search:hover {
+        box-shadow: 0 0 5px gray;
       }
     }
   }
