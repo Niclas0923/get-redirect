@@ -26,9 +26,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
 
     app.post("/systemServer/login",(req, res)=>{
         const {name,password} = req.body
-        if (testLogin(name,password)){
-            res.send(["密码正确"])
-        }else res.send(["用户名或密码错误"])
+        res.send(testLogin(name,password))
     })
 
     app.post("/systemServer/getValList",(req, res)=>{
@@ -36,7 +34,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
             res.send(data)
-        }else res.send(["用户名或密码错误"])
+        }else res.send(false)
     })
 
     app.post("/systemServer/removeOne",(req, res)=>{
@@ -49,8 +47,8 @@ const server = (options,userRoutes,data,httpsO=false)=>{
             data = data.filter(i => i.id !== tagId)
             // 写入
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
-            res.send(["成功"])
-        }else res.send(["用户名或密码错误"])
+            res.send(true)
+        }else res.send(false)
     })
 
     app.post("/systemServer/addOne",(req, res)=>{
@@ -69,17 +67,17 @@ const server = (options,userRoutes,data,httpsO=false)=>{
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
             // 写入log
             whiteLog(name,time,{name:tag, url, userName:name, id, time},"addOne")
-            res.send(["成功"])
-        }else res.send(["用户名或密码错误"])
+            res.send(true)
+        }else res.send(false)
     })
 
     // 返回log文件
-    app.post("/systemServer/log",(req,res)=>{
+    app.post("/systemServer/getValLog",(req,res)=>{
         const {name,password} = req.body
         if (testLogin(name,password)){
             const data = JSON.parse(String(fs.readFileSync("./config/log.json")))
             res.send(data)
-        }else res.send(["用户名或密码错误"])
+        }else res.send(false)
     })
 
 
