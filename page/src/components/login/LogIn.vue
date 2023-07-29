@@ -4,12 +4,12 @@
     <div class="login-from col-12 offset-0 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
       <h2>管理员登陆</h2>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="floatingInput" placeholder="用户名" v-model="name">
-        <label for="floatingInput">用户名</label>
+        <input type="text" class="form-control" placeholder="用户名" v-model="name">
+        <label>用户名</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="密码" v-model="password" @keydown.enter="login">
-        <label for="floatingPassword">密码</label>
+        <input type="password" class="form-control" placeholder="密码" v-model="password" @keydown.enter="login">
+        <label>密码</label>
       </div>
       <button class="btn btn-primary" @click="login">登陆</button>
     </div>
