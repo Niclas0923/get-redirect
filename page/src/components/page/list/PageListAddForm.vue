@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" @click="addOne">添加</button>
+        <button class="btn btn-primary" @click="addListOne">添加</button>
       </div>
       <!-- 提示栏 -->
       <div class="card-page warning" v-pre>
@@ -38,7 +38,7 @@
 import "animate.css"
 export default {
   name: 'PageListAddForm',
-  props: ["allTags"],
+  props: ["allTags","addOne"],
   data(){
     return{
       path:"",
@@ -46,7 +46,7 @@ export default {
     }
   },
   methods:{
-    addOne(){
+    addListOne(){
       // 不能为空
       if (this.path.length !== 0 && this.url.length !== 0){
         const regex = /[<>\\]/;
@@ -57,7 +57,7 @@ export default {
             // 测试重复
             if (this.allTags.indexOf(this.path) === -1){
               // 全部正常那么触发添加
-              this.$bus.$emit("addOne",this.path,this.url)
+              this.addOne(this.path,this.url)
               // 然后清空信息
               this.url = ""
               this.path = ""

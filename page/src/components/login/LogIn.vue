@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import {mapActions,mapState} from 'vuex'
 export default {
   name: 'LogIn',
   data(){
@@ -25,7 +26,6 @@ export default {
       password:""
     }
   },
-  props: ["tryLogIn"],
   methods:{
     login(){
       // 不能为空
@@ -34,9 +34,45 @@ export default {
         // 测试几个特殊符号
         if(!regex.test(this.name) && !regex.test(this.password)){
           // 直接进行登录测试
-          this.tryLogIn(this.name,this.password)
+          this.tryLogIn(this.name,this.password,data=>{
+            if (data){
+              // 保存用户名和密码
+              this.whiteUser({
+                name:this.name,
+                password:this.password
+              })
+              // 情空输入框
+              this.name = ""
+              this.password = ""
+              // 成功则前往 /page
+              this.$router.push("/page")
+            }else alert("用户名或密码错误")
+          })
         }else alert("不能含有特殊符号")
       }else alert("不能为空")
+    },
+    ...mapActions(["whiteUser"]),
+  },
+  computed:{
+    ...mapState(["tryLogIn"])
+  },
+  mounted() {
+    // 尝试读取本地数据
+    const userVal = JSON.parse(localStorage.getItem("user"))
+    if (userVal){
+      this.tryLogIn(userVal.name,userVal.password,data=>{
+        if (data){
+          // 成功，前往 /page
+          this.whiteUser({
+            name: userVal.name,
+            password:userVal.password
+          })
+          this.$router.push("/page")
+        }else {
+          // 失败，删除 ls 再前往 /login
+          localStorage.removeItem("user");
+        }
+      })
     }
   }
 }

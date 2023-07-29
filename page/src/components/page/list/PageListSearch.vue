@@ -19,10 +19,8 @@
       </svg>
 <!--      搜索提示 -->
       <div class="div-tips">
-        <div class="div-tips-in">
-          <div class="tips-for-search" v-for="i in tipsOn" :key="i" @click="searchValue = i">
-            {{i}}
-          </div>
+        <div class="tips-for-search" v-for="i in tipsOn" :key="i" @click="searchValue = i">
+          {{i}}
         </div>
       </div>
     </div>
@@ -142,33 +140,26 @@ export default {
   }
   .div-tips{
     margin: 10px 0 -10px -5px;
-    display: block;
+    display: flex;
     overflow-x: auto;
     /* 隐藏滚动条 */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
+    white-space: nowrap; /* 防止子元素折行 */
 
-    .div-tips-in{
-      /* 设置容器为块级元素，以确保其宽度被撑开 */
-      display: block;
-      /* 设置容器内子元素横向排布 */
-      white-space: nowrap; /* 防止子元素折行 */
-
-      .tips-for-search{
-        display: inline-block;
-        margin: 5px 8px 5px 5px;
-        border-radius: 6px;
-        box-shadow: 0 0 5px #bbbbbb;
-        padding: 2px 4px;
-        float: left;
-        font-size: 13px;
-        color: gray;
-        // 鼠标边为可选
-        cursor: pointer;
-      }
-      .tips-for-search:hover {
-        box-shadow: 0 0 5px gray;
-      }
+    .tips-for-search{
+      margin: 5px 8px 5px 5px;
+      border-radius: 6px;
+      box-shadow: 0 0 5px #bbbbbb;
+      padding: 2px 4px;
+      float: left;
+      font-size: 13px;
+      color: gray;
+      // 鼠标边为可选
+      cursor: pointer;
+    }
+    .tips-for-search:hover {
+      box-shadow: 0 0 5px gray;
     }
   }
 }

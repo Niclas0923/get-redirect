@@ -29,7 +29,7 @@
       </div>
     </transition-group>
     <div v-if="log.length === 0">
-      <h2>当前没有log信息。</h2>
+      <h2>{{noValue}}</h2>
     </div>
   </div>
 </div>
@@ -37,9 +37,15 @@
 
 <script>
 import "animate.css"
+import {mapState} from "vuex"
 export default {
   name:"PageLog",
-  props:["log"],
+  data(){
+    return{
+      log:[],
+      noValue:""
+    }
+  },
   computed:{
     nLog(){
       let a = []
@@ -47,6 +53,25 @@ export default {
         a.unshift(i)
       }
       return a
+    },
+    ...mapState(["getValueLog"])
+  },
+  mounted(){
+    const userVal = JSON.parse(localStorage.getItem("user"))
+    if (userVal){
+      // 获取log信息
+      this.getValueLog(data=>{
+        if (data){
+          this.log = data
+          if (data.length === 0){
+            this.noValue = "当前没有 log"
+          }
+        }else {
+          alert("data 获取失败。")
+        }
+      })
+    }else {
+      this.$router.push("/login")
     }
   }
 }
