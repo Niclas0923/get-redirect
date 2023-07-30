@@ -73,6 +73,15 @@ export default {
     }else {
       this.$router.push("/login")
     }
+  },
+  beforeRouteEnter(to,from,next){
+    try {
+      const nav = document.getElementById('navbarSupportedContent')
+      nav.classList.toggle('show');
+    }catch (e) {
+      console.log(e)
+    }
+    next()
   }
 }
 </script>
