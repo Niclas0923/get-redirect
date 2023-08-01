@@ -5,19 +5,34 @@
         :valueChange="valueChange"
         :list="list"
     />
+
     <!-- 信息列表 -->
-    <PageListCards
-        :list="list"
-        :searchValue="searchValue"
-        :addClick="addClick"
-        :del-one="delOne"
-    />
+    <transition
+        appear
+        name="animate__animated animate__bounce"
+        enter-active-class="animate__bounceInUp"
+        leave-active-class="animate__bounceOut"
+    >
+      <PageListCards
+          :list="list"
+          :searchValue="searchValue"
+          :addClick="addClick"
+          :del-one="delOne"
+      />
+    </transition>
+
     <!-- 添加菜单 -->
-    <PageListAddForm
-        v-show="addOn"
-        :allTags="allTags"
-        :addOne="addOne"
-    />
+    <transition
+        name="animate__animated animate__bounce"
+        enter-active-class="animate__bounceIn"
+        leave-active-class="animate__zoomOut"
+    >
+      <PageListAddForm
+          v-show="addOn"
+          :allTags="allTags"
+          :addOne="addOne"
+      />
+    </transition>
   </div>
 </template>
 

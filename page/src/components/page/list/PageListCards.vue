@@ -1,12 +1,5 @@
 <template>
-  <transition-group
-      appear
-      name="animate__animated animate__bounce"
-      enter-active-class="animate__bounceIn"
-      leave-active-class="animate__zoomOut"
-      duration="500"
-      class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4"
-  >
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4">
     <div class="col" v-for="i in listOn" :key="i.id" v-show="i.show">
       <div class="card h-100" v-if="i.id !== add.id">
         <div class="card-body">
@@ -30,7 +23,7 @@
         </svg>
       </button>
     </div>
-  </transition-group>
+  </div>
 </template>
 
 <script>
