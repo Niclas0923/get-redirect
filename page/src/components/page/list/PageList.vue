@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState,mapMutations} from "vuex";
 import PageListAddForm from "@/components/page/list/PageListAddForm.vue";
 import PageListCards from "@/components/page/list/PageListCards.vue";
 import PageListSearch from "@/components/page/list/PageListSearch.vue";
@@ -47,7 +47,6 @@ export default {
     return {
       addOn:false,
       searchValue:"",
-      list:[]
     }
   },
   components:{
@@ -63,9 +62,10 @@ export default {
       }
       return data
     },
-    ...mapState(["getValueList","removeListOne","addListOne"])
+    ...mapState(["getValueList","removeListOne","addListOne","list"]),
   },
   methods:{
+    ...mapMutations({changeList:"CHANGELIST"}),
     addClick(){
       this.addOn = true
     },
@@ -76,7 +76,7 @@ export default {
       // 尝试获取 list 信息
       this.getValueList(data=>{
         if (data){
-          this.list = data
+          this.changeList(data)
         }else alert("list 信息请求失败")
       })
     },

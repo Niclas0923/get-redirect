@@ -43,8 +43,25 @@
 
 <script>
 // import "animate.css"
+import {mapMutations,mapState} from "vuex";
+
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  computed:{
+    ...mapState(["getValueLog"])
+  },
+  methods:{
+    ...mapMutations({
+      changeLog:"CHANGELOG"
+    })
+  },
+  mounted() {
+    this.getValueLog(data=>{
+      if (data){
+        this.changeLog(data)
+      }
+    })
+  }
 }
 </script>
 

@@ -18,7 +18,12 @@ const mutations = {
         state.user.name = value.name
         state.user.password = value.password
     },
-
+    CHANGELIST(state,value){
+        state.list = value
+    },
+    CHANGELOG(state,value){
+        state.log = value
+    }
 }
 // 可以理解成所有组件都能访问到的data
 const state = {
@@ -26,6 +31,8 @@ const state = {
         name:'',
         password:""
     },
+    list:[],
+    log:[],
     // 发送 post 命令
     postTo(path,data,callback){
         // 为了直接访问某个链接的兄弟们写的

@@ -37,12 +37,11 @@
 
 <script>
 // import "animate.css"
-import {mapState} from "vuex"
+import {mapState,mapMutations} from "vuex"
 export default {
   name:"PageLog",
   data(){
     return{
-      log:[],
       noValue:""
     }
   },
@@ -54,7 +53,12 @@ export default {
       }
       return a
     },
-    ...mapState(["getValueLog"])
+    ...mapState(["getValueLog","log"])
+  },
+  methods:{
+    ...mapMutations({
+      changeLog:"CHANGELOG"
+    })
   },
   mounted(){
     const userVal = JSON.parse(localStorage.getItem("user"))
@@ -62,7 +66,7 @@ export default {
       // 获取log信息
       this.getValueLog(data=>{
         if (data){
-          this.log = data
+          this.changeLog(data)
           if (data.length === 0){
             this.noValue = "当前没有 log"
           }
