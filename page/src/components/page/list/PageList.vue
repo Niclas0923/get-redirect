@@ -100,6 +100,7 @@ export default {
       const nav = document.getElementById('navbarSupportedContent')
       nav.classList.toggle('show');
     }catch (e) {
+      console.log("直接访问出现此log可以忽视")
       console.log(e)
     }
     next()
