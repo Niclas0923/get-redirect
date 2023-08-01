@@ -26,6 +26,38 @@ const actions = {
         },data=>{
             context.commit("CHANGELOG", data)
         })
+    },
+    // 向 list 中添加一个
+    addListOne(context,value){
+        context.state.postTo("/systemServer/addOne",{
+            name:context.state.user.name,
+            password:context.state.user.password,
+            tag:value.tag,
+            url:value.url
+        },data=>{
+            if (data){
+                context.dispatch("getValueList").then(r => {
+                    if (r) console.log(r)
+                })
+            }else alert("添加失败")
+        })
+    },
+    // 从 list 中删除一个
+    removeListOne(context,i){
+        if (confirm(`确定要删除索引 ${i.name} 吗？`)) {
+            // 用户点击了“确定”按钮，继续执行后面的代码
+            context.state.postTo("/systemServer/removeOne",{
+                name:context.state.user.name,
+                password:context.state.user.password,
+                tagId:i.id
+            },data=>{
+                if (data){
+                    context.dispatch("getValueList").then(r => {
+                        if (r) console.log(r)
+                    })
+                }else alert("删除失败")
+            })
+        }
     }
 }
 const mutations = {
@@ -70,22 +102,6 @@ const state = {
     tryLogIn(name,password,callback){
         this.$store.state.postTo("/systemServer/login",{
             name,password
-        },callback)
-    },
-    // 向 list 中添加一个
-    addListOne(tag,url,callback){
-        this.$store.state.postTo("/systemServer/addOne",{
-            name:this.$store.state.user.name,
-            password:this.$store.state.user.password,
-            tag,url
-        },callback)
-    },
-    // 从 list 中删除一个
-    removeListOne(tagId,callback){
-        this.$store.state.postTo("/systemServer/removeOne",{
-            name:this.$store.state.user.name,
-            password:this.$store.state.user.password,
-            tagId
         },callback)
     }
 

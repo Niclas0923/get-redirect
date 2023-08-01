@@ -1,10 +1,7 @@
 <template>
   <div class="container col-12 offset-0 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
     <!-- 搜索框 -->
-    <PageListSearch
-        :valueChange="valueChange"
-        :list="list"
-    />
+    <PageListSearch :valueChange="valueChange"/>
 
     <!-- 信息列表 -->
     <transition
@@ -14,10 +11,8 @@
         leave-active-class="animate__bounceOut"
     >
       <PageListCards
-          :list="list"
           :searchValue="searchValue"
           :addClick="addClick"
-          :del-one="delOne"
       />
     </transition>
 
@@ -30,7 +25,6 @@
       <PageListAddForm
           v-show="addOn"
           :allTags="allTags"
-          :addOne="addOne"
       />
     </transition>
   </div>
@@ -62,7 +56,7 @@ export default {
       }
       return data
     },
-    ...mapState(["removeListOne","addListOne","list"]),
+    ...mapState(["list"])
   },
   methods:{
     ...mapActions(["getValueList"]),
@@ -72,27 +66,6 @@ export default {
     valueChange(val){
       this.searchValue = val
     },
-    delOne(i){
-      if (confirm(`确定要删除索引 ${i.name} 吗？`)) {
-        // 用户点击了“确定”按钮，继续执行后面的代码
-        this.removeListOne(i.id,data=>{
-          if (!data){
-            alert("失败")
-          }else {
-            this.getValueList()
-          }
-        })
-      }
-    },
-    addOne(tag,url){
-      this.addListOne(tag,url,data=>{
-        if(data){
-          this.getValueList()
-        }else {
-          alert("失败")
-        }
-      })
-    }
   },
   mounted(){
     const userVal = JSON.parse(localStorage.getItem("user"))

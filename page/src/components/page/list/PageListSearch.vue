@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   name:"PageListSearch",
   data(){
@@ -36,8 +38,9 @@ export default {
       timeoutI:""
     }
   },
-  props:["valueChange","list"],
+  props:["valueChange"],
   computed:{
+    ...mapState(['list']),
     tipsOn(){
       const ports = []
       const hostNames = []

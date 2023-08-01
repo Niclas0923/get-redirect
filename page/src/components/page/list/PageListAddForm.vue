@@ -11,7 +11,7 @@
         </div>
         <div class="col-xxl">
           <div class="form-floating">
-            <input type="url" class="form-control" placeholder="URL" v-model="url" @keydown.enter="addOne">
+            <input type="url" class="form-control" placeholder="URL" v-model="url" @keydown.enter="addListOne">
             <label>URL</label>
           </div>
         </div>
@@ -31,9 +31,10 @@
 
 <script>
 // import "animate.css"
+import {mapActions} from "vuex";
 export default {
   name: 'PageListAddForm',
-  props: ["allTags","addOne"],
+  props: ["allTags"],
   data(){
     return{
       path:"",
@@ -41,6 +42,7 @@ export default {
     }
   },
   methods:{
+    ...mapActions({addList:"addListOne"}),
     addListOne(){
       // 不能为空
       if (this.path.length !== 0 && this.url.length !== 0){
@@ -52,7 +54,7 @@ export default {
             // 测试重复
             if (this.allTags.indexOf(this.path) === -1){
               // 全部正常那么触发添加
-              this.addOne(this.path,this.url)
+              this.addList({tag:this.path,url:this.url})
               // 然后清空信息
               this.url = ""
               this.path = ""
