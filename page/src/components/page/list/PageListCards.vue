@@ -60,15 +60,15 @@ export default {
   computed:{
     ...mapState(["removeListOne"]),
     listOn(){
-      const add = this.add
-      add.show = this.searchValue !== "🤮#$%^&*(😂"
+      // const add = this.add
+      // add.show = this.searchValue !== "🤮#$%^&*(😂"
       if (this.searchValue === ""){
         const l = []
         for (let i of this.list){
           i.show = true
           l.push(i)
         }
-        l.push(add)
+        l.push(this.add)
         return l
       }else {
         const trueArr = []
@@ -84,10 +84,10 @@ export default {
         })
         let sendArr = []
         if (trueArr.length === 0){
-          falseArr.push(add)
+          falseArr.push(this.add)
           sendArr = falseArr
         }else {
-          trueArr.push(add)
+          trueArr.push(this.add)
           sendArr = trueArr.concat(falseArr)
         }
         return sendArr

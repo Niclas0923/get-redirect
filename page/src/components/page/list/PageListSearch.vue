@@ -83,12 +83,12 @@ export default {
     searchValue(a){
       // 打断上次延时
       clearTimeout(this.timeoutI)
-      // 设置一个不可能匹配到的项
-      this.valueChange("🤮#$%^&*(😂")
+      // // 设置一个不可能匹配到的项
+      // this.valueChange("🤮#$%^&*(😂")
       // 开启延时
       this.timeoutI = setTimeout(()=>{
         this.valueChange(a)
-      },550)
+      },100)
     }
   }
 }
