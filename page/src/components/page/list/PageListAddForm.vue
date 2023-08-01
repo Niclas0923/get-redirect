@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import "animate.css"
+// import "animate.css"
 export default {
   name: 'PageListAddForm',
   props: ["allTags","addOne"],

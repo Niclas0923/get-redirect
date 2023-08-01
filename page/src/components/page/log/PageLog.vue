@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import "animate.css"
+// import "animate.css"
 import {mapState} from "vuex"
 export default {
   name:"PageLog",

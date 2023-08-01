@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import "animate.css"
+// import "animate.css"
 export default {
   name: 'HomePage'
 }
