@@ -79,7 +79,7 @@ export default {
           if (!data){
             alert("失败")
           }else {
-            this.getList()
+            this.getValueList()
           }
         })
       }
@@ -87,7 +87,7 @@ export default {
     addOne(tag,url){
       this.addListOne(tag,url,data=>{
         if(data){
-          this.getList()
+          this.getValueList()
         }else {
           alert("失败")
         }
