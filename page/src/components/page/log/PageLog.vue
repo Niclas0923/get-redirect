@@ -37,7 +37,7 @@
 
 <script>
 // import "animate.css"
-import {mapState,mapMutations} from "vuex"
+import {mapState,mapActions} from "vuex"
 export default {
   name:"PageLog",
   data(){
@@ -53,27 +53,16 @@ export default {
       }
       return a
     },
-    ...mapState(["getValueLog","log"])
+    ...mapState(["log"])
   },
   methods:{
-    ...mapMutations({
-      changeLog:"CHANGELOG"
-    })
+    ...mapActions(["getValueLog"])
   },
   mounted(){
     const userVal = JSON.parse(localStorage.getItem("user"))
     if (userVal){
       // 获取log信息
-      this.getValueLog(data=>{
-        if (data){
-          this.changeLog(data)
-          if (data.length === 0){
-            this.noValue = "当前没有 log"
-          }
-        }else {
-          alert("data 获取失败。")
-        }
-      })
+      this.getValueLog()
     }else {
       this.$router.push("/login")
     }

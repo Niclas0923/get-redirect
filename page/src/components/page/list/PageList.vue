@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import {mapState,mapMutations} from "vuex";
+import {mapState,mapActions} from "vuex";
 import PageListAddForm from "@/components/page/list/PageListAddForm.vue";
 import PageListCards from "@/components/page/list/PageListCards.vue";
 import PageListSearch from "@/components/page/list/PageListSearch.vue";
@@ -62,23 +62,15 @@ export default {
       }
       return data
     },
-    ...mapState(["getValueList","removeListOne","addListOne","list"]),
+    ...mapState(["removeListOne","addListOne","list"]),
   },
   methods:{
-    ...mapMutations({changeList:"CHANGELIST"}),
+    ...mapActions(["getValueList"]),
     addClick(){
       this.addOn = true
     },
     valueChange(val){
       this.searchValue = val
-    },
-    getList(){
-      // 尝试获取 list 信息
-      this.getValueList(data=>{
-        if (data){
-          this.changeList(data)
-        }else alert("list 信息请求失败")
-      })
     },
     delOne(i){
       if (confirm(`确定要删除索引 ${i.name} 吗？`)) {
@@ -105,7 +97,7 @@ export default {
   mounted(){
     const userVal = JSON.parse(localStorage.getItem("user"))
     if (userVal){
-      this.getList()
+      this.getValueList()
     }else {
       this.$router.push("/login")
     }

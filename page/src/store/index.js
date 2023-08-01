@@ -10,6 +10,22 @@ const actions = {
         // localStorage写入
         localStorage.setItem("user", JSON.stringify(value));
         context.commit("WHITEUSER",value)
+    },
+    getValueList(context){
+        context.state.postTo("/systemServer/getValList",{
+            name:context.state.user.name,
+            password:context.state.user.password
+        },data=>{
+            context.commit("CHANGELIST", data)
+        })
+    },
+    getValueLog(context){
+        context.state.postTo("/systemServer/getValLog",{
+            name:context.state.user.name,
+            password:context.state.user.password
+        },data=>{
+            context.commit("CHANGELOG", data)
+        })
     }
 }
 const mutations = {
@@ -54,20 +70,6 @@ const state = {
     tryLogIn(name,password,callback){
         this.$store.state.postTo("/systemServer/login",{
             name,password
-        },callback)
-    },
-    // 获取 list 数据
-    getValueList(callback){
-        this.$store.state.postTo("/systemServer/getValList",{
-            name:this.$store.state.user.name,
-            password:this.$store.state.user.password
-        },callback)
-    },
-    // 获取 log 数据
-    getValueLog(callback){
-        this.$store.state.postTo("/systemServer/getValLog",{
-            name:this.$store.state.user.name,
-            password:this.$store.state.user.password
         },callback)
     },
     // 向 list 中添加一个
