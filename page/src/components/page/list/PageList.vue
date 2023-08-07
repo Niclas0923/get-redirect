@@ -22,16 +22,6 @@ function valueChange(data){
 
 // 挂载后执行
 onMounted(()=>{
-  // 更新页面的功能
-  const userVal = JSON.parse(localStorage.getItem("user"))
-  if (userVal){
-    // 获取 list 信息
-    value.updateListValue()
-  }else {
-    const router = useRouter()
-    router.push("/login")
-  }
-
   // 收起 nav 的功能
   try {
     const nav = document.getElementById('navbarSupportedContent')

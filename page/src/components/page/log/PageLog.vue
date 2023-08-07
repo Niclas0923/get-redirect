@@ -14,16 +14,6 @@ const nLog = computed(()=>{
 })
 
 onMounted(()=>{
-  // 更新页面的功能
-  const userVal = JSON.parse(localStorage.getItem("user"))
-  if (userVal){
-    // 获取 log 信息
-    value.updateLogValue()
-  }else {
-    const router = useRouter()
-    router.push("/login")
-  }
-
   // 收起 nav 的功能
   try {
     const nav = document.getElementById('navbarSupportedContent')
