@@ -58,6 +58,7 @@ onMounted(()=>{
     </transition>
     <!-- 插入位置 -->
     <router-view/>
+    <div style="height: 4vh"></div>
   </div>
 </template>
 
