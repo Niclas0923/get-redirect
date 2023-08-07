@@ -16,28 +16,32 @@ export const useValueStore = defineStore('value', ()=>{
     })
 
     // 更新 log 的数据
-    function updateLogValue(){
-        post.postUseUser("/systemServer/getValLog",data=>{
-            if (data){
-                value.log = data
-            }else alert('登录信息错误')
-        })
-    }
+    // function updateLogValue(){
+    //     post.postUseUser("/systemServer/getValLog",data=>{
+    //         if (data){
+    //             value.log = data
+    //         }else alert('登录信息错误')
+    //     })
+    // }
 
     // 更新 list 的数据
-    function updateListValue(){
-        post.postUseUser("/systemServer/getValList",data=>{
-            if (data){
-                value.list = data
-            }else alert('登录信息错误')
-        })
-    }
+    // function updateListValue(){
+    //     post.postUseUser("/systemServer/getValList",data=>{
+    //         if (data){
+    //             value.list = data
+    //         }else alert('登录信息错误')
+    //     })
+    // }
 
     // 都进行更新
     function updateAll(){
-        updateLogValue()
-        updateListValue()
+        post.postUseUser("/systemServer/getValues",data=>{
+            if (data){
+                value.list = data.list
+                value.log = data.log
+            }else alert('登录信息错误')
+        })
     }
 
-    return {...toRefs(value),updateLogValue,updateListValue,updateAll}
+    return {...toRefs(value),updateAll}
 })

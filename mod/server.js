@@ -1,3 +1,4 @@
+const fs = require("fs");
 const server = (options,userRoutes,data,httpsO=false)=>{
     const express = require("express")
     const bodyParser = require("body-parser");
@@ -29,13 +30,14 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         res.send(testLogin(name,password))
     })
 
-    app.post("/systemServer/getValList",(req, res)=>{
-        const {name,password} = req.body
-        if (testLogin(name,password)){
-            const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
-            res.send(data)
-        }else res.send(false)
-    })
+    // 返回 list 文件
+    // app.post("/systemServer/getValList",(req, res)=>{
+    //     const {name,password} = req.body
+    //     if (testLogin(name,password)){
+    //         const data = JSON.parse(String(fs.readFileSync("./config/data.json")))
+    //         res.send(data)
+    //     }else res.send(false)
+    // })
 
     app.post("/systemServer/removeOne",(req, res)=>{
         const {name,password,tagId} = req.body
@@ -71,12 +73,21 @@ const server = (options,userRoutes,data,httpsO=false)=>{
         }else res.send(false)
     })
 
-    // 返回log文件
-    app.post("/systemServer/getValLog",(req,res)=>{
+    // 返回 log 文件
+    // app.post("/systemServer/getValLog",(req,res)=>{
+    //     const {name,password} = req.body
+    //     if (testLogin(name,password)){
+    //         const data = JSON.parse(String(fs.readFileSync("./config/log.json")))
+    //         res.send(data)
+    //     }else res.send(false)
+    // })
+
+    app.post("/systemServer/getValues",(req, res)=>{
         const {name,password} = req.body
         if (testLogin(name,password)){
-            const data = JSON.parse(String(fs.readFileSync("./config/log.json")))
-            res.send(data)
+            const list = JSON.parse(String(fs.readFileSync("./config/data.json")))
+            const log  = JSON.parse(String(fs.readFileSync("./config/log.json")))
+            res.send({list,log})
         }else res.send(false)
     })
 
