@@ -1,3 +1,45 @@
+<script setup>
+import {onMounted, reactive, toRefs} from "vue";
+import {useTryLoginStore} from "../../store/post/useTryLoginStore.js";
+import {useRouter} from "vue-router";
+// 引入 post 中的方法
+const tryLogin = useTryLoginStore().tryLogin
+// 引入 router
+const router = useRouter()
+
+// 组件内的用户信息
+const user = reactive({
+  name:"",
+  password:""
+})
+
+// 登录函数
+function login(){
+  // console.log("正在登录",{name:user.name, password:user.password})
+  tryLogin(user.name,user.password,data=>{
+    if (data){
+      // 登录成功
+      user.name = ""
+      user.password = ""
+      // 跳转到 /page
+      router.push("/page")
+    }else alert("用户名或密码错误")
+  })
+}
+
+onMounted(()=>{
+  // 直接测试登录
+  tryLogin("","",data=>{
+    // 成功则跳转到 /page
+    if (data) router.push("/page")
+  })
+})
+
+// 释放数据用于页面显示
+const {name,password}= toRefs(user)
+
+</script>
+
 <template>
   <div id="login-page" class="container">
     <div style="height: 30vh"></div>
@@ -15,68 +57,6 @@
     </div>
   </div>
 </template>
-
-<script>
-import {mapActions,mapState} from 'vuex'
-export default {
-  name: 'LogIn',
-  data(){
-    return{
-      name:"",
-      password:""
-    }
-  },
-  methods:{
-    login(){
-      // 不能为空
-      if (this.name.length !== 0 && this.password.length !== 0){
-        const regex = /[<>\\]/;
-        // 测试几个特殊符号
-        if(!regex.test(this.name) && !regex.test(this.password)){
-          // 直接进行登录测试
-          this.tryLogIn(this.name,this.password,data=>{
-            if (data){
-              // 保存用户名和密码
-              this.whiteUser({
-                name:this.name,
-                password:this.password
-              })
-              // 情空输入框
-              this.name = ""
-              this.password = ""
-              // 成功则前往 /page
-              this.$router.push("/page")
-            }else alert("用户名或密码错误")
-          })
-        }else alert("不能含有特殊符号")
-      }else alert("不能为空")
-    },
-    ...mapActions(["whiteUser"]),
-  },
-  computed:{
-    ...mapState(["tryLogIn"])
-  },
-  mounted() {
-    // 尝试读取本地数据
-    const userVal = JSON.parse(localStorage.getItem("user"))
-    if (userVal){
-      this.tryLogIn(userVal.name,userVal.password,data=>{
-        if (data){
-          // 成功，前往 /page
-          this.whiteUser({
-            name: userVal.name,
-            password:userVal.password
-          })
-          this.$router.push("/page")
-        }else {
-          // 失败，删除 ls 再前往 /login
-          localStorage.removeItem("user");
-        }
-      })
-    }
-  }
-}
-</script>
 
 <style scoped>
 /*登录表格*/

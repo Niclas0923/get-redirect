@@ -1,20 +1,18 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
+// 引入路由
+import router from './router'
+// 引入 pinia
+import { createPinia } from 'pinia'
 
-// 引入 vuex
-import store from "./store"
-// 引入 router
-import VueRouter from "vue-router";
-import router from "./router"
+// 生成 pinia
+const pinia = createPinia()
+// 生成 app 对象
+const app = createApp(App)
 
-Vue.config.productionTip = false
-Vue.use(VueRouter)
-
-new Vue({
-  render: h => h(App),
-  beforeCreate() {
-    Vue.prototype.$bus = this
-  },
-  router,
-  store
-}).$mount('#app')
+// 使用 pinia
+app.use(pinia)
+// 使用路由
+app.use(router)
+// 最后设置 el
+app.mount('#app')

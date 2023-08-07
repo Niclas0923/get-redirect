@@ -1,3 +1,23 @@
+<script setup>
+import {onMounted} from "vue";
+import {useValueStore} from "../../store/useValueStore.js";
+import {useRouter} from "vue-router";
+// 引入 value 数据
+const value = useValueStore()
+
+onMounted(()=>{
+  // 获取数据进入缓存
+  const userVal = JSON.parse(localStorage.getItem("user"))
+  if (userVal){
+    // 获取所有信息
+    value.updateAll()
+  }else {
+    const router = useRouter()
+    router.push("/login")
+  }
+})
+</script>
+
 <template>
   <div>
     <transition
@@ -37,26 +57,9 @@
       </nav>
     </transition>
     <!-- 插入位置 -->
-    <router-view />
+    <router-view/>
   </div>
 </template>
-
-<script>
-// import "animate.css"
-import {mapActions} from "vuex";
-
-export default {
-  name: 'HomePage',
-  methods:{
-    ...mapActions(["getValueList","getValueLog"])
-  },
-  mounted() {
-    // 获取信息
-    this.getValueList()
-    this.getValueLog()
-  }
-}
-</script>
 
 <style scoped>
 nav{

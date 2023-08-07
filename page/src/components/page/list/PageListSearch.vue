@@ -1,3 +1,75 @@
+<script setup>
+import {computed, ref, watch} from "vue";
+import {useRouter} from "vue-router";
+// 接收数据
+const props = defineProps(['searchValue','valueChange',"list"])
+// 引入 router
+const router = useRouter()
+
+// 设置响应
+const searchValue = ref(props.searchValue)
+
+// timeout 计时器标识
+let timeOutI = 0
+
+// 设置监听
+watch(searchValue,(newValue)=>{
+  // 停止上次 timeout
+  window.clearTimeout(timeOutI)
+  timeOutI = window.setTimeout(()=>{
+    // 更改数据
+    props.valueChange(newValue)
+    // 更改路径 query
+    const value = newValue? newValue:"null"
+    router.replace({
+      query: {search:value}
+    })
+  },200)
+})
+
+// 标签计算
+const tipsOn = computed(()=>{
+  const ports = []
+  const hostNames = []
+  const admNames = []
+  props.list.forEach(e=>{
+    try {
+      const url = new URL(e.url);
+      const domain = url.hostname;
+      const port = url.port;
+
+      hostNames.push(domain)
+      if (port) ports.push(port)
+    } catch (err) {
+      console.log(err)
+    }
+    admNames.push(e.userName)
+  })
+  // 去重域名
+  const minHostName = [...new Set(hostNames)]
+  // 去重管理员姓名
+  const minAdmNames = [...new Set(admNames)]
+  // 端口去重
+  const minPorts = [...new Set(ports)]
+  let allList = []
+  // 域名
+  // 只有一个域名，并且全都是与之相关
+  if (minHostName.length === 1 && props.list.length === hostNames.length){
+    // 不添加
+  }else {
+    allList = allList.concat(minHostName)
+  }
+  // 端口
+  allList = allList.concat(minPorts)
+  // 管理员名称
+  if (minAdmNames.length !== 1){
+    allList = allList.concat(minAdmNames)
+  }
+  // 总体去重
+  return [...new Set(allList)]
+})
+</script>
+
 <template>
   <transition
       appear
@@ -26,76 +98,6 @@
     </div>
   </transition>
 </template>
-
-<script>
-import {mapState} from "vuex";
-
-export default {
-  name:"PageListSearch",
-  data(){
-    return{
-      searchValue:"",
-      timeoutI:""
-    }
-  },
-  props:["valueChange"],
-  computed:{
-    ...mapState(['list']),
-    tipsOn(){
-      const ports = []
-      const hostNames = []
-      const admNames = []
-      this.list.forEach(e=>{
-        try {
-          const url = new URL(e.url);
-          const domain = url.hostname;
-          const port = url.port;
-
-          hostNames.push(domain)
-          if (port) ports.push(port)
-        } catch (err) {
-          console.log(err)
-        }
-        admNames.push(e.userName)
-      })
-      // 去重域名
-      const minHostName = [...new Set(hostNames)]
-      // 去重管理员姓名
-      const minAdmNames = [...new Set(admNames)]
-      // 端口去重
-      const minPorts = [...new Set(ports)]
-      let allList = []
-      // 域名
-      // 只有一个域名，并且全都是与之相关
-      if (minHostName.length === 1 && this.list.length === hostNames.length){
-        // 不添加
-      }else {
-        allList = allList.concat(minHostName)
-      }
-      // 端口
-      allList = allList.concat(minPorts)
-      // 管理员名称
-      if (minAdmNames.length !== 1){
-        allList = allList.concat(minAdmNames)
-      }
-      // 总体去重
-      return [...new Set(allList)]
-    }
-  },
-  watch:{
-    searchValue(a){
-      // 打断上次延时
-      clearTimeout(this.timeoutI)
-      // // 设置一个不可能匹配到的项
-      // this.valueChange("🤮#$%^&*(😂")
-      // 开启延时
-      this.timeoutI = setTimeout(()=>{
-        this.valueChange(a)
-      },100)
-    }
-  }
-}
-</script>
 
 <style lang="less" scoped>
 .div-input{
