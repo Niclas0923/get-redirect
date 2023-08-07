@@ -50,7 +50,7 @@ npm run st
 cd change
 node change01.js
 ```
-## 开发版1.0.2-1.0.3更新
+## 开发版1.0.5-1.1.0更新
 从 vue2 架构更新到 vue3 ，从 vue-cli 更换为 vite 来编译页面，这次更新 page 中的库需要重新安装。
 ```shell
 cd page
