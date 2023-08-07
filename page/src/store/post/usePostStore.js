@@ -18,8 +18,6 @@ export const usePostStore = defineStore('post', ()=>{
             const userVal = JSON.parse(localStorage.getItem("user"))
             // 如果有数据
             if (userVal) {
-                user.name = userVal.name
-                user.password = userVal.password
                 data = userVal
             }
         }
@@ -39,16 +37,12 @@ export const usePostStore = defineStore('post', ()=>{
         // 设置 setTimeout 来解决用户数据更新的问题
         // 让这些函数运行在更新后
         setTimeout(()=>{
-            axios.post(path,{
+            post(path,{
                 name:user.name,
                 password:user.password
-            }).then(
-                res=> canCallback(res.data),
-                err=>{
-                    console.log("请求发送失败---postStore.postUseUser"+err)
-                    alert("请求发送失败")
-                }
-            )
+            },data=>{
+                canCallback(data)
+            })
         })
     }
 
