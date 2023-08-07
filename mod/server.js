@@ -1,4 +1,3 @@
-const fs = require("fs");
 const server = (options,userRoutes,data,httpsO=false)=>{
     const express = require("express")
     const bodyParser = require("body-parser");
