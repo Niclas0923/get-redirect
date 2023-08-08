@@ -14,7 +14,12 @@ let timeOutI = 0
 
 // 剪切内容
 function cutValue(){
-  navigator.clipboard.writeText(searchValue.value);
+  const input = document.createElement('input');
+  input.value = searchValue.value;
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand('copy');
+  document.body.removeChild(input);
   searchValue.value = ""
 }
 
