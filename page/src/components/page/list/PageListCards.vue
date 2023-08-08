@@ -46,7 +46,7 @@ function addBtn(){
           <small class="text-muted">{{i.time}}</small>
         </div>
         <div class="false" @click="change.removeOne(i)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16" v-pre>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg svg" viewBox="0 0 16 16" v-pre>
             <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
           </svg>
         </div>
@@ -55,7 +55,7 @@ function addBtn(){
     <!-- 添加按钮 -->
     <div class="col" v-if="addShow">
       <button class="btn btn-add" @click="addBtn()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus add-svg" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus svg" viewBox="0 0 16 16">
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
         </svg>
       </button>
@@ -108,8 +108,8 @@ function addBtn(){
       box-shadow: 0 0 10px #bbbbbb;
     }
 
-    // 所有引入图标
-    svg{
+    // 部分引入图标
+    .svg{
       color: #676767;
     }
   }
