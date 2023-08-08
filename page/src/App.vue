@@ -29,5 +29,7 @@ onMounted(()=>{
 <style>
 body{
   min-height: 100vh;
+  padding-bottom: 4vh;
+  overflow-y: scroll;
 }
 </style>
