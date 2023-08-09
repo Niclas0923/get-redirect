@@ -131,10 +131,10 @@ const tipsOn = computed(()=>{
     border-radius: 6px;
     border: none;
     outline: 2px solid white;
-    outline-offset: -2px;
+    outline-offset: -1px;
   }
   .input:focus {
-    outline:2px solid lightgrey;
+    outline:1px solid rgba(0,0,0,.15);
   }
   .input:hover {
     box-shadow: 0 0 5px gray;
@@ -180,7 +180,7 @@ const tipsOn = computed(()=>{
     .tips-for-search{
       margin: 5px 8px 5px 5px;
       border-radius: 6px;
-      box-shadow: 0 0 5px #bbbbbb;
+      box-shadow: 0 0 5px rgba(0,0,0,.15);
       padding: 2px 4px;
       float: left;
       font-size: 13px;
@@ -189,7 +189,7 @@ const tipsOn = computed(()=>{
       cursor: pointer;
     }
     .tips-for-search:hover {
-      box-shadow: 0 0 5px gray;
+      box-shadow: 0 0 5px rgba(0,0,0,.20);
     }
   }
 }

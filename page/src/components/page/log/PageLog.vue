@@ -1,7 +1,6 @@
 <script setup>
-import {computed, onMounted} from "vue";
+import {onMounted} from "vue";
 import {useValueStore} from "../../../store/useValueStore.js";
-import {useRouter} from "vue-router";
 
 // 引入显示的数据
 const value = useValueStore()
@@ -38,7 +37,7 @@ onMounted(()=>{
             <span class="badge rounded-pill bg-primary">{{i.time}}</span>
           </div>
           <div class="col-md-10">
-            <div class="card rounded-0 border-0 shadow my-4">
+            <div class="card rounded-6 border-0 shadow my-4">
               <div class="card-body">
                 <h5 class="card-title" v-if="i.thing === 'addOne'">添加</h5>
                 <h5 class="card-title" v-if="i.thing === 'removeOne'">删除</h5>

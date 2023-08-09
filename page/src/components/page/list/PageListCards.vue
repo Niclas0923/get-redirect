@@ -76,7 +76,7 @@ function addBtn(){
 
     // 卡片的内部
     .card{
-      box-shadow: 0 0 5px lightgrey;
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 
       // 删除div
       .false{
@@ -92,7 +92,7 @@ function addBtn(){
       }
     }
     .card:hover{
-      box-shadow: 0 0 5px gray;
+      box-shadow: 0 .5rem 1rem rgba(0,0,0,.20);
     }
 
     // 添加按钮
