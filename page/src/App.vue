@@ -5,13 +5,13 @@ import {useTryLoginStore} from "./store/post/useTryLoginStore.js";
 
 // 获取 post 的相关方法
 const tryLogin = useTryLoginStore().tryLogin
+// 引入 router
+const router = useRouter()
 
 // 构建完成后尝试读取本地数据并测试
 onMounted(()=>{
   // 读取本地存储
   let user = JSON.parse(localStorage.getItem("user"))
-  // 引入 router 用于跳转
-  const router = useRouter()
   if (user){
     // 尝试登录
     tryLogin(user.name,user.password,data=>{

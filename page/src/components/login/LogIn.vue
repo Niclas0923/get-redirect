@@ -1,11 +1,12 @@
 <script setup>
 import {onMounted, reactive, toRefs} from "vue";
 import {useTryLoginStore} from "../../store/post/useTryLoginStore.js";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 // 引入 post 中的方法
 const tryLogin = useTryLoginStore().tryLogin
 // 引入 router
 const router = useRouter()
+const route = useRoute()
 
 // 组件内的用户信息
 const user = reactive({
@@ -21,8 +22,10 @@ function login(){
       // 登录成功
       user.name = ""
       user.password = ""
-      // 跳转到 /page
-      router.push("/page")
+      // 没有 query.path 时跳转到 /page
+      if (route.query.path){
+        router.push(route.query.path)
+      }else router.push("/page")
     }else alert("用户名或密码错误")
   })
 }

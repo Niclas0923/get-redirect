@@ -1,6 +1,6 @@
 import * as VueRouter from 'vue-router'
 import LogIn from "../components/login/LogIn.vue";
-import Page from "../components/page/page.vue";
+import Page from "../components/page/Page.vue";
 import PageLog from "../components/page/log/PageLog.vue";
 import PageList from "../components/page/list/PageList.vue";
 
@@ -18,6 +18,11 @@ export default VueRouter.createRouter({
         {
             path:"/login",
             component:LogIn,
+            // 进入前传递当前路径
+            beforeEnter(to,from,next){
+                if (from.path !== "/")to.query.path = from.path
+                next()
+            }
         },
         {
             path:"/page",
