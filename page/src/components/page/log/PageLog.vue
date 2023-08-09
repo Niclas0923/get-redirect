@@ -6,13 +6,6 @@ import {useRouter} from "vue-router";
 // 引入显示的数据
 const value = useValueStore()
 
-// 翻转的计算属性
-const nLog = computed(()=>{
-  let a = []
-  for (let i of value.log) a.unshift(i)
-  return a
-})
-
 onMounted(()=>{
   // 收起 nav 的功能
   try {
@@ -40,7 +33,7 @@ onMounted(()=>{
           enter-active-class="animate__bounceInUp"
           leave-active-class="animate__bounceOut"
       >
-        <div class="row" v-for="i in nLog" :key="i.id">
+        <div class="row" v-for="i in value.log" :key="i.id">
           <div class="col-md-2 d-flex justify-content-center align-items-center app-line">
             <span class="badge rounded-pill bg-primary">{{i.time}}</span>
           </div>

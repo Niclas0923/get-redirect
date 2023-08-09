@@ -38,7 +38,7 @@ export const useValueStore = defineStore('value', ()=>{
         post.postUseUser("/systemServer/getValues",data=>{
             if (data){
                 value.list = data.list
-                value.log = data.log
+                value.log = data.log.reverse()
                 if (log) alert("更新完成")
             }else alert('登录信息错误')
         })
