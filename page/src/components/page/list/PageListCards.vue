@@ -34,7 +34,7 @@ function addBtn(){
 </script>
 
 <template>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-5 g-4">
+  <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 g-4">
     <div class="col" v-for="i in listOn" :key="i.id" v-show="i.show">
       <div class="card h-100">
         <div class="card-body">
@@ -77,6 +77,13 @@ function addBtn(){
     // 卡片的内部
     .card{
       box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+
+      .card-body{
+        a{
+          word-wrap: break-word; /* 让长单词或URL在不超出容器的情况下强制换行 */
+          word-break: break-all; /* 让单词内部自动换行，防止文本溢出容器 */
+        }
+      }
 
       // 删除div
       .false{
