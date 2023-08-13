@@ -17,17 +17,14 @@ function addListOne(){
     const regex = /[<>\\]/;
     // 测试几个特殊符号
     if(!regex.test(value.tag) && !regex.test(value.url)){
-      // 测试系统占用
-      if (["systemServer","adm"].indexOf(value.tag) === -1){
-        // 测试重复
-        if (props.allTags.indexOf(value.tag) === -1){
-          // 全部正常那么触发添加
-          change.addOne(value.tag,value.url)
-          // 然后清空信息
-          value.url = ""
-          value.tag = ""
-        }else alert("索引标签重复，请进行修改")
-      }else alert("索引标签与系统占用标签相同，请进行修改")
+      // 测试重复
+      if (props.allTags.indexOf(value.tag) === -1){
+        // 全部正常那么触发添加
+        change.addOne(value.tag,value.url)
+        // 然后清空信息
+        value.url = ""
+        value.tag = ""
+      }else alert("索引标签重复，请进行修改")
     }else alert("不能含有 <>\\ 这几个特殊符号")
   }else alert("不能为空")
 }
