@@ -1,4 +1,4 @@
-const server = (options,userRoutes,data,httpsO=false)=>{
+const server = (options,userRoutes,data,restartFun,httpsO=false)=>{
     const express = require("express")
     const bodyParser = require("body-parser");
     const fs = require("fs")
@@ -48,6 +48,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
             // 写入
             fs.writeFileSync("./config/data.json",JSON.stringify(data))
             res.send(true)
+            setTimeout(()=>restartFun(),1000)
         }else res.send(false)
     })
 
@@ -68,6 +69,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
             // 写入log
             whiteLog(name,time,{name:tag, url, userName:name, id, time},"addOne")
             res.send(true)
+            setTimeout(()=>restartFun(),1000)
         }else res.send(false)
     })
 
