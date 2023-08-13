@@ -131,6 +131,6 @@ user.js
 config/data.json
 config/log.json
 
-routes/
+/mod/routes-gitignore
 
 .idea/
