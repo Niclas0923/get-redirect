@@ -9,8 +9,7 @@ const server = (options,userRoutes,data,httpsO=false)=>{
     const app = express();
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-    app.use('/', userRoutes);
-    // app.use(express.static('./page'))
+    app.use('/api', userRoutes);
     app.use('/adm', express.static('./page/dist'));
 
     // 测试用户名和密码的函数
