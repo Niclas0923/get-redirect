@@ -22,6 +22,15 @@ const listOn = computed(()=>{
   return sendArr
 })
 
+// 管理员姓名是否显示
+const admOn = computed(()=>{
+  let list = []
+  props.list.forEach((value,i)=>{
+    list[i] = value.userName
+  })
+  list = [...new Set(list)]
+  return list.length !== 1
+})
 
 // 添加按钮的数据
 const addShow = ref(true)
@@ -39,7 +48,7 @@ function addBtn(){
       <div class="card h-100">
         <div class="card-body">
           <h5 class="card-title mb-2">{{i.name}}</h5>
-          <h6 class="card-subtitle text-muted">{{i.userName}}</h6>
+          <h6 class="card-subtitle text-muted" v-if="admOn">{{i.userName}}</h6>
           <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
         </div>
         <div class="card-footer">
