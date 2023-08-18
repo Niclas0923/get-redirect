@@ -32,6 +32,19 @@ const admOn = computed(()=>{
   return list.length !== 1
 })
 
+// 年月份中的年是否显示
+const yearOn = computed(()=>{
+  let list = []
+  props.list.forEach((value,i)=>{
+    list[i] = value.time.substring(0, 5)
+  })
+  list = [...new Set(list)]
+  // 长度等于1，并且这个值为当前年份
+  return list.length !== 1 && list[0].substring(0, 4) === String(new Date().getFullYear())
+})
+// 根据年份是否显示进行时间信息的处理
+const timeBuild = (time)=> yearOn.value ? time : time.substring(5)
+
 // 添加按钮的数据
 const addShow = ref(true)
 // 添加按钮的点击事件
@@ -52,7 +65,7 @@ function addBtn(){
           <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
         </div>
         <div class="card-footer">
-          <small class="text-muted">{{i.time}}</small>
+          <small class="text-muted">{{timeBuild(i.time)}}</small>
         </div>
         <div class="false" @click="change.removeOne(i)">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg svg" viewBox="0 0 16 16" v-pre>
