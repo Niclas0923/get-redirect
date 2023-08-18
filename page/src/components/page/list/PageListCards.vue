@@ -32,18 +32,12 @@ const admOn = computed(()=>{
   return list.length !== 1
 })
 
-// 年月份中的年是否显示
-const yearOn = computed(()=>{
-  let list = []
-  props.list.forEach((value,i)=>{
-    list[i] = value.time.substring(0, 5)
-  })
-  list = [...new Set(list)]
-  // 长度等于1，并且这个值为当前年份
-  return list.length !== 1 && list[0].substring(0, 4) === String(new Date().getFullYear())
-})
-// 根据年份是否显示进行时间信息的处理
-const timeBuild = (time)=> yearOn.value ? time : time.substring(5)
+// 根据当前显示年份进行时间信息的处理
+const timeBuild = (time)=> {
+  // 如果时间是今年，那么就不进行显示
+  const on = time.substring(0, 4) !== String(new Date().getFullYear())
+  return on ? time : time.substring(5)
+}
 
 // 添加按钮的数据
 const addShow = ref(true)
