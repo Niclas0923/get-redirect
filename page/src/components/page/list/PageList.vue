@@ -1,10 +1,13 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
+import {computed, ref} from "vue";
 import {useValueStore} from "../../../store/useValueStore.js";
-import {useRoute, useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import PageListSearch from "./PageListSearch.vue";
 import PageListCards from "./PageListCards.vue"
 import PageListAddForm from "./PageListAddForm.vue";
+// 自动关闭navbar
+import {useCloseNavbar} from "../../../hooks/useCloseNavbar.js";
+useCloseNavbar()
 
 // 引入 value 数据
 const value = useValueStore()
@@ -19,22 +22,6 @@ if (searchValue.value === "null")searchValue.value = ""
 function valueChange(data){
   searchValue.value = data
 }
-
-// 挂载后执行
-onMounted(()=>{
-  // 收起 nav 的功能
-  try {
-    const nav = document.getElementById('navbarSupportedContent')
-    // 检查 class 中是否有 show
-    if (nav.classList.contains('show')) {
-      // 移除 show
-      nav.classList.remove('show');
-    }
-  }catch (e) {
-    console.log("直接访问出现此log可以忽视")
-    console.log(e)
-  }
-})
 
 // add 按钮的数据
 let addOn = ref(false)
