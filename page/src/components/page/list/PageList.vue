@@ -51,35 +51,20 @@ const allTags = computed(()=>{
     />
 
     <!-- 信息列表 -->
-    <transition
-        appear
-        name="animate__animated animate__bounce"
-        enter-active-class="animate__bounceInUp"
-        leave-active-class="animate__bounceOut"
-    >
-      <PageListCards
-          :searchValue="searchValue"
-          :list="value.list"
-          :addClick="changeAdd"
-      />
-    </transition>
-
-    <!-- 显示信息 -->
-    <PageListAlert
-        key="PageListAlert"
+    <PageListCards
+        :searchValue="searchValue"
+        :list="value.list"
+        :addClick="changeAdd"
     />
 
+    <!-- 显示信息 -->
+    <PageListAlert/>
+
     <!-- 添加菜单 -->
-    <transition
-        name="animate__animated animate__bounce"
-        enter-active-class="animate__bounceIn"
-        leave-active-class="animate__zoomOut"
-    >
-      <PageListAddForm
-          v-show="addOn"
-          :allTags="allTags"
-      />
-    </transition>
+    <PageListAddForm
+        :addOn="addOn"
+        :allTags="allTags"
+    />
   </div>
 </template>
 

@@ -50,33 +50,40 @@ function addBtn(){
 </script>
 
 <template>
-  <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 g-4 mb-4">
-    <div class="col" v-for="i in listOn" :key="i.id" v-show="i.show">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title mb-2">{{i.name}}</h5>
-          <h6 class="card-subtitle text-muted" v-if="admOn">{{i.userName}}</h6>
-          <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">{{timeBuild(i.time)}}</small>
-        </div>
-        <div class="false" @click="change.removeOne(i)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg svg" viewBox="0 0 16 16" v-pre>
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-          </svg>
+  <transition
+      appear
+      name="animate__animated animate__bounce"
+      enter-active-class="animate__bounceInUp"
+      leave-active-class="animate__bounceOut"
+  >
+    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4 row-cols-xxl-5 g-4 mb-4">
+      <div class="col" v-for="i in listOn" :key="i.id" v-show="i.show">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mb-2">{{i.name}}</h5>
+            <h6 class="card-subtitle text-muted" v-if="admOn">{{i.userName}}</h6>
+            <a :href="i.url" target="_blank" class="card-link">{{i.url}}</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{timeBuild(i.time)}}</small>
+          </div>
+          <div class="false" @click="change.removeOne(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg svg" viewBox="0 0 16 16" v-pre>
+              <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+            </svg>
+          </div>
         </div>
       </div>
+      <!-- 添加按钮 -->
+      <div class="col" v-if="addShow">
+        <button class="btn btn-add" @click="addBtn()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus svg" viewBox="0 0 16 16">
+            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+          </svg>
+        </button>
+      </div>
     </div>
-    <!-- 添加按钮 -->
-    <div class="col" v-if="addShow">
-      <button class="btn btn-add" @click="addBtn()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus svg" viewBox="0 0 16 16">
-          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
