@@ -52,7 +52,7 @@ const tipsOn = computed(()=>{
       hostNames.push(domain)
       if (port) ports.push(port)
     } catch (err) {
-      console.log(err)
+      console.log(`检测到值${e.url}不是url，如果为真则无需理会。`)
     }
     admNames.push(e.userName)
   })
