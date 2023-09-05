@@ -7,18 +7,17 @@ let closeAlert = ref(true)
 // 关闭的功能
 function close(){
   closeAlert.value = true
-  window.localStorage.setItem("PageValueAlert-close-alert",JSON.stringify({close:true}))
+  window.localStorage.setItem("PageValueAlert-close-alert",JSON.stringify({close:true,time:Date.now()}))
 }
 
 // 读取本地信息的测试
 onMounted(()=>{
   const val = JSON.parse(String(window.localStorage.getItem("PageValueAlert-close-alert")))
-  console.log(val)
   if (val){
     closeAlert.value = val.close
   }else{
     closeAlert.value = false
-    window.localStorage.setItem("PageValueAlert-close-alert",JSON.stringify({close:false}))
+    window.localStorage.setItem("PageValueAlert-close-alert",JSON.stringify({close:false,time:Date.now()}))
   }
 })
 
