@@ -12,13 +12,19 @@ function close(){
 
 // 读取本地信息的测试
 onMounted(()=>{
-  const val = JSON.parse(String(window.localStorage.getItem("PageValueAlert-close-alert")))
-  if (val){
-    closeAlert.value = val.close
-  }else{
+  function initialization(){
     closeAlert.value = false
     window.localStorage.setItem("PageValueAlert-close-alert",JSON.stringify({close:false,time:Date.now()}))
   }
+
+  const val = JSON.parse(String(window.localStorage.getItem("PageValueAlert-close-alert")))
+  if (val){
+    // 转化为小时，超过24小时就重置信息
+    // console.log((Date.now() - val.time)/1000/60/60,(Date.now() - val.time)/1000/60/60>24)
+    if ((Date.now() - val.time)/1000/60/60>24){
+      initialization()
+    } else closeAlert.value = val.close
+  }else initialization()
 })
 
 </script>
