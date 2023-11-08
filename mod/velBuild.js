@@ -4,7 +4,7 @@ const velBuild = (data)=>{
         "const express = require('express');\n" +
         "const router = express.Router();\n"
     for (const i of data) {
-        val += `router.get('/${i.name}', (req, res) => {res.redirect('${i.url}')});\n`
+        val += `router.get(/\\/${i.name}(\\/.*)?/, (req, res) => {const path = req.params[0]?req.params[0].replace(/\\//g, ''):req.params[0];let url = '${i.url}';if(path)url+=\`/\${path}\`;res.redirect(url)});\n`
     }
     val += `module.exports = router;`
 
