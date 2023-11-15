@@ -75,7 +75,7 @@ onMounted(()=>{
 
 <style scoped>
 nav{
-  box-shadow: 0 0 5px gray;
+  box-shadow: 0 0 5px rgb(128, 128, 128);
 }
 .refresh-btn{
   position: fixed;
