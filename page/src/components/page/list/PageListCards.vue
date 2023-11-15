@@ -1,8 +1,8 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed} from "vue";
 import {useChangeListStore} from "../../../store/post/useChangeListStore.js";
 
-const props = defineProps(["list","addClick","searchValue"])
+const props = defineProps(["list","changeAdd","searchValue"])
 const change = useChangeListStore()
 
 // 计算是否显示
@@ -39,13 +39,6 @@ const timeBuild = (time)=> {
   return on ? time : time.substring(5)
 }
 
-// 添加按钮的数据
-const addShow = ref(true)
-// 添加按钮的点击事件
-function addBtn(){
-  addShow.value = false
-  props.addClick()
-}
 
 </script>
 
@@ -75,8 +68,8 @@ function addBtn(){
         </div>
       </div>
       <!-- 添加按钮 -->
-      <div class="col" v-if="addShow">
-        <button class="btn btn-add" @click="addBtn()">
+      <div class="col">
+        <button class="btn btn-add" @click="props.changeAdd(true)">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus svg" viewBox="0 0 16 16">
             <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
           </svg>

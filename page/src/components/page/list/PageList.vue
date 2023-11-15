@@ -26,8 +26,8 @@ function valueChange(data){
 
 // add 按钮的数据
 let addOn = ref(false)
-function changeAdd(){
-  addOn.value = true
+function changeAdd(x){
+  addOn.value = x
 }
 
 // 所有的标签
@@ -52,9 +52,10 @@ const allTags = computed(()=>{
 
     <!-- 信息列表 -->
     <PageListCards
+        :addOn="addOn"
         :searchValue="searchValue"
         :list="value.list"
-        :addClick="changeAdd"
+        :changeAdd="changeAdd"
     />
 
     <!-- 显示信息 -->
@@ -64,6 +65,7 @@ const allTags = computed(()=>{
     <PageListAddForm
         :addOn="addOn"
         :allTags="allTags"
+        :changeAdd="changeAdd"
     />
   </div>
 </template>
