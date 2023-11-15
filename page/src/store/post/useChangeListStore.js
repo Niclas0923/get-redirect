@@ -9,6 +9,9 @@ export const useChangeListStore = defineStore('changeList', ()=>{
 
     // 增添一个数据
     function addOne(tag,url){
+        // 去除最后可能出现的 /
+        if (url[url.length -1] === "/") url = url.slice(0,-1)
+
         post.post("/systemServer/addOne",{
             tag,url,
             name:post.name,
