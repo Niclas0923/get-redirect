@@ -84,12 +84,6 @@ npm run st
 
 # 更新注意
 
-## 开发版1.0.2-1.0.3更新
-数据需要进行转化，转化可以直接运行change文件夹中的change1函数，需要进入change1中修改姓名字符串，之后再运行。
-```shell
-cd change
-node change01.js
-```
 ## 开发版1.0.5-1.1.0更新
 从 vue2 架构更新到 vue3 ，从 vue-cli 更换为 vite 来编译页面，这次更新 page 中的库需要重新安装。
 ```shell
