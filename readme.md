@@ -73,24 +73,28 @@ npm i
 npm run st
 ```
 ### 使用方法
-可以直接访问 [http(s)://localhost:配置端口/adm](#) 这个地址来访问配置网页，需要输入你配置好的用户名和密码，输入正确后可以控制删除或者添加索引。
+可以直接访问 [http(s)://localhost:配置端口]() 这个地址来访问配置网页，需要输入你配置好的用户名和密码，输入正确后可以控制删除或者添加索引。
 
-配置好了之后可以通过访问 [http(s)://localhost:配置端口/adm/api/设置的索引](#) 来跳转到你设置的链接或目的地。
+配置好了之后可以通过访问 [http(s)://localhost:配置端口/api/设置的索引]() 来跳转到你设置的链接或目的地。
 
-所以如果http协议设置成80端口或者https协议设置成443端口可以无需输入端口号从而简短链接，当然也可以不使用localhost访问，设置在服务器上并配置好域名可以直接访问 [http(s)://域名:配置端口/adm/api/设置的索引](#) 来跳转。
+所以如果http协议设置成80端口或者https协议设置成443端口可以无需输入端口号从而简短链接，当然也可以不使用localhost访问，设置在服务器上并配置好域名可以直接访问 [http(s)://域名:配置端口/api/设置的索引]() 来跳转。
 
 配置修改有1s的延迟，并且在修改出现错误控制台会有错误提示。
 
 另外在控制台有手动命令可用，虽然当前只有一个手动更新，但是有这个东西，你可以自己修改来使用控制一些命令。
 
-### 关于nginx跳转的配置
-支持使用nginx进行跳转来完成操作，你可以在配置文件中找到80对应的server，然后在里面配置
+### 关于nginx反向代理的配置
+可以使用nginx进行反向代理使用，你可以在配置文件中找到80对应的server，然后在里面配置
 ```markdown
-location /adm {  
-    return 301 http://example.com:8080$request_uri;
+location /adm/ {
+  proxy_pass http://localhost:8080/;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_redirect off;
 }
 ```
-其中example.com为你服务器对应的域名，也可以是ip地址；8080为本服务监听的端口，要与config/server.json中配置的相同。
+其中8080为本服务监听的端口，要与config/server.json中配置的相同，这样就可以直接访问 [域名/adm]()和[域名/adm/api/索引]()来访问页面和跳转了。当然如果你需要的话可以直接设置为/来直接通过80端口使用。
 
 # 更新注意
 
