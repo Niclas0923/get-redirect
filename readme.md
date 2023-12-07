@@ -83,6 +83,15 @@ npm run st
 
 另外在控制台有手动命令可用，虽然当前只有一个手动更新，但是有这个东西，你可以自己修改来使用控制一些命令。
 
+### 关于nginx跳转的配置
+支持使用nginx进行跳转来完成操作，你可以在配置文件中找到80对应的server，然后在里面配置
+```markdown
+location /adm {  
+    return 301 http://example.com:8080$request_uri;
+}
+```
+其中example.com为你服务器对应的域名，也可以是ip地址；8080为本服务监听的端口，要与config/server.json中配置的相同。
+
 # 更新注意
 
 ## 开发版1.0.5-1.1.0更新
