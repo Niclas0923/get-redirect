@@ -84,17 +84,21 @@ npm run st
 另外在控制台有手动命令可用，虽然当前只有一个手动更新，但是有这个东西，你可以自己修改来使用控制一些命令。
 
 ### 关于nginx反向代理的配置
-可以使用nginx进行反向代理使用，你可以在配置文件中找到80对应的server，然后在里面配置
-```markdown
-location /adm/ {
-  proxy_pass http://localhost:8080/;
-  proxy_set_header Host $host;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_redirect off;
+可以使用nginx进行反向代理使用，你可以在配置文件中新建server，
+```conf
+server {
+  listen 80;
+  listen [::]:80;
+  server_name adm.test.com;
+  location / {
+    proxy_pass http://localhost:8080;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection upgrade;
+    proxy_set_header Accept-Encoding gzip;
+  }
 }
 ```
-其中8080为本服务监听的端口，要与config/server.json中配置的相同，这样就可以直接访问 [域名/adm]()和[域名/adm/api/索引]()来访问页面和跳转了。当然如果你需要的话可以直接设置为/来直接通过80端口使用。
+其中8080为本服务监听的端口，要与config/server.json中配置的相同；adm.test.com为你访问服务器的域名，这样就可以直接访问 [adm.test.com]()和[adm.test.com/api/索引]()来访问页面和跳转了。
 
 # 更新注意
 
